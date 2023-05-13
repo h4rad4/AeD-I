@@ -22,11 +22,9 @@ int main(int argc, char const *argv[])
 
     printf("Escreva uma frase. ");
     fgets(frase[0], 100, stdin);
-    // printf("%s", frase[0]);
 
     printf("Insira a letra a ser buscada na frase anterior. ");
     scanf("%c", &letra[0]);
-    // printf("%c", letra[0]);
 
     for (int i = 0; i < strlen(frase[0]) - 1; i++)
     {
