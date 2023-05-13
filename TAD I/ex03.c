@@ -25,6 +25,7 @@ typedef struct data
     int dia;
     int mes;
     int ano;
+    
 } Date;
 
 int main(int argc, char const *argv[])
