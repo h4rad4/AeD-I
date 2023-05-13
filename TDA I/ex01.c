@@ -26,6 +26,13 @@ int main(int argc, char const *argv[])
     printf("Insira a letra a ser buscada na frase anterior. ");
     scanf("%c", &letra[0]);
 
+    Busca(frase, letra, boolean);
+
+    return 0;
+}
+
+void Busca(char frase[1][100], char letra[1], int boolean)
+{
     for (int i = 0; i < strlen(frase[0]) - 1; i++)
     {
         if (frase[0][i] == letra[0])
@@ -34,11 +41,9 @@ int main(int argc, char const *argv[])
             printf("SIM.");
         }
     }
-    
+
     if (boolean != True)
     {
         printf("NAO.");
     }
-
-    return 0;
 }
