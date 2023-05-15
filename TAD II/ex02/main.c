@@ -11,3 +11,11 @@ e y a parte imaginária. O TAD deverá conter as seguintes funções:
 6- divisão de dois números complexos.
 -----------------------------------------------------------------------------------------------------------
 */
+
+#include <stdio.h>
+
+int main(int argc, char const *argv[])
+{
+    /* code */
+    return 0;
+}
