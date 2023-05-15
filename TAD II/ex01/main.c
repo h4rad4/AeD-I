@@ -7,6 +7,7 @@ as operações que retornem os tamanhos de cada lado, a sua área e o seu volume
 
 #include <stdio.h>
 #include "header.h"
+#include "operations.c"
 
 int main(int argc, char const *argv[])
 {
