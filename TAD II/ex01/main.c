@@ -1,13 +1,12 @@
 /*
 ---------------------------------------------------------------------------------------------
-Desenvolva um TAD que represente um cubo. Inclua as funções de inicializações necessárias e 
+Desenvolva um TAD que represente um cubo. Inclua as funções de inicializações necessárias e
 as operações que retornem os tamanhos de cada lado, a sua área e o seu volume
 ---------------------------------------------------------------------------------------------
 */
 
 #include <stdio.h>
 #include "header.h"
-#include "operations.c"
 
 int main(int argc, char const *argv[])
 {
@@ -19,11 +18,34 @@ int main(int argc, char const *argv[])
     float area = cuboArea(&cubo);
     float volume = cuboVolume(&cubo);
 
-    printf("Lado = %.2f \n", lado);
+    printf("\nLado = %.2f \n", lado);
     printf("Area = %.2f \n", area);
     printf("Volume = %.2f \n", volume);
 
     return 0;
 }
 
-// AINDA INCOMPLETO
+void dadosCubo(Cubo *cubo)
+{
+    float size;
+
+    printf("Insira valor do lado do cubo. ");
+    scanf("%f", &size);
+
+    cubo -> lado = size;
+}
+
+float cuboLado(Cubo *cubo)
+{
+    return cubo -> lado;
+}
+
+float cuboArea(Cubo *cubo)
+{
+    return 6 * pow(cubo -> lado, 2);
+}
+
+float cuboVolume(Cubo *cubo)
+{
+    return pow(cubo -> lado, 3);
+}
