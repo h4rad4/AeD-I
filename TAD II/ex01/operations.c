@@ -1,14 +1,11 @@
 #include "header.h"
 #include <math.h>
+#include <stdio.h>
 
 void dadosCubo(Cubo *cubo)
 {
-    float size;
-
     printf("Insira valor do lado do cubo. ");
-    scanf("%f", &size);
-
-    cubo -> lado = size;
+    scanf("%f", &(cubo -> lado));
 }
 
 float cuboLado(Cubo *cubo)

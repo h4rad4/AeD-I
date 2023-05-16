@@ -1,3 +1,6 @@
+#ifndef header_h
+#define header_h
+
 typedef struct
 {
     float lado;
@@ -7,3 +10,5 @@ void dadosCubo(Cubo *cubo);
 float cuboLado(Cubo *cubo);
 float cuboArea(Cubo *cubo);
 float cuboVolume(Cubo *cubo);
+
+#endif
