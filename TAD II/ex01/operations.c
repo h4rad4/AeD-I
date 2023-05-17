@@ -8,17 +8,17 @@ void dadosCubo(Cubo *cubo)
     scanf("%f", &(cubo -> lado));
 }
 
-float cuboLado(Cubo *cubo)
+double cuboLado(Cubo *cubo)
 {
     return cubo -> lado;
 }
 
-float cuboArea(Cubo *cubo)
+double cuboArea(Cubo *cubo)
 {
     return 6*pow(cubo -> lado, 2);
 }
 
-float cuboVolume(Cubo *cubo)
+double cuboVolume(Cubo *cubo)
 {
     return pow(cubo -> lado, 3);
 }

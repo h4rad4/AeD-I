@@ -3,12 +3,12 @@
 
 typedef struct
 {
-    float lado;
+    double lado;
 } Cubo;
 
 void dadosCubo(Cubo *cubo);
-float cuboLado(Cubo *cubo);
-float cuboArea(Cubo *cubo);
-float cuboVolume(Cubo *cubo);
+double cuboLado(Cubo *cubo);
+double cuboArea(Cubo *cubo);
+double cuboVolume(Cubo *cubo);
 
 #endif

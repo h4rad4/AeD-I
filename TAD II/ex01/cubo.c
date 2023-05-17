@@ -14,9 +14,9 @@ int main(int argc, char const *argv[])
 
     dadosCubo(&cubo);
 
-    float lado = cuboLado(&cubo);
-    float area = cuboArea(&cubo);
-    float volume = cuboVolume(&cubo);
+    double lado = cuboLado(&cubo);
+    double area = cuboArea(&cubo);
+    double volume = cuboVolume(&cubo);
 
     printf("\nLado = %.2f \n", lado);
     printf("Area = %.2f \n", area);
