@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "main.h"
 
-void *criarComplexo(int real, double img)
+void *criarComplexo(int real, int img)
 {
     Complexo *complexo = (Complexo *)malloc(sizeof(Complexo));
     complexo->real = real;
