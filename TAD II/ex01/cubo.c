@@ -18,9 +18,9 @@ int main(int argc, char const *argv[])
     double area = cuboArea(&cubo);
     double volume = cuboVolume(&cubo);
 
-    printf("\nLado = %.2f \n", lado);
-    printf("Area = %.2f \n", area);
-    printf("Volume = %.2f \n", volume);
+    printf("\nLado = %.2lf \n", lado);
+    printf("Area = %.2lf \n", area);
+    printf("Volume = %.2lf \n", volume);
 
     return 0;
 }

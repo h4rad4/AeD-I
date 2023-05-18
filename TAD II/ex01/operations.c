@@ -5,7 +5,7 @@
 void dadosCubo(Cubo *cubo)
 {
     printf("Insira valor do lado do cubo. ");
-    scanf("%f", &(cubo -> lado));
+    scanf("%lf", &(cubo -> lado));
 }
 
 double cuboLado(Cubo *cubo)
