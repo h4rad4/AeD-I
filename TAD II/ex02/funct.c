@@ -2,13 +2,13 @@
 #include <stdlib.h>
 #include "main.h"
 
-void *criarComplexo(int real, int img)
+Complexo *criarComplexo(int real, int img)
 {
     Complexo *complexo = (Complexo *)malloc(sizeof(Complexo));
     complexo->real = real;
     complexo->img = img;
 
-    printf("%i + %ii", complexo->real, complexo->img);
+    return complexo;
 }
 
 void destruirComplexo(Complexo *complexo)

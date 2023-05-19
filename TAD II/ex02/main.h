@@ -1,15 +1,16 @@
-#ifndef main_h
-#define main_h
+#ifndef MAIN_H
+#define MAIN_H
 
 typedef struct {
-    int real;     
-    int img;     
+    int real;
+    int img;
 } Complexo;
 
-void *criarComplexo(int real, int img);
+Complexo *criarComplexo(int real, int img);
 void destruirComplexo(Complexo *complexo);
 Complexo *somarComplexos(Complexo *z1, Complexo *z2);
 Complexo *subtrairComplexos(Complexo *z1, Complexo *z2);
 Complexo *multiplicarComplexos(Complexo *z1, Complexo *z2);
+Complexo *dividirComplexos(Complexo *z1, Complexo *z2);
 
-#endif
+#endif 
