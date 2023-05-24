@@ -1,0 +1,6 @@
+
+
+void criaVetor(lista *p)
+{
+    
+}
