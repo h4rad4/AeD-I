@@ -2,8 +2,15 @@
 #include <stdlib.h>
 #include "main.h"
 
-int main(int argc, char const *argv[])
+int main()
 {
-    /* code */
+    lista Lista;
+    int n;
+
+    printf("Informe a quantidade de elementos do vetor: ");
+    scanf("%i", &n);
+
+    criaVetor(&Lista, n);
+
     return 0;
 }
