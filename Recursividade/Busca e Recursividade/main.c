@@ -11,6 +11,7 @@ int main()
     scanf("%i", &n);
 
     criaVetor(&Lista, n);
+    criaVetor2(&Lista, n);
 
     return 0;
 }
