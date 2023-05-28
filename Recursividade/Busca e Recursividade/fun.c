@@ -3,13 +3,9 @@
 #include <time.h>
 #include "main.h"
 
-lista *criaVetor(lista *p)
+lista *criaVetor(lista *p, int n)
 {
-    int n;
-
-    printf("Informe a quantidade de elementos do vetor: ");
-    scanf("%i", &n);
-
+    /* ALOCAÇÃO DE MEMÓRIA*/
     p -> n = n;
     p = malloc(sizeof(lista));
     p -> vetor = (int *)malloc(n * sizeof(int));
@@ -23,9 +19,9 @@ lista *criaVetor(lista *p)
         printf("Preenchendo o vetor [1] com valores aleatorios... \n");
 
         for (int i = 0; i < n; i++) 
-            p->vetor[i] = rand() % 100; // ATRIBUINDO VALORES ALEATÓRIOS AO VETOR
+            p->vetor[i] = rand() % 100; /* ATRIBUINDO VALORES ALEATÓRIOS AO VETOR */
 
-        for (int i = 0; i < n - 1; i++) // ORDENANDO O VETOR
+        for (int i = 0; i < n - 1; i++) /* ORDENANDO O VETOR */
         {
             for (int j = 0; j < n - i - 1; j++)
             {
@@ -38,16 +34,16 @@ lista *criaVetor(lista *p)
             }
         }
 
-        for (int i = 0; i < n; i++) // IMPRIMINDO O VETOR
+        for (int i = 0; i < n; i++) /* IMPRIMINDO O VETOR */
             printf("%d\t", p->vetor[i]);
 
 
         printf("\nPreenchendo o vetor [2] com valores aleatorios... \n");
 
         for (int i = 0; i < 30; i++)
-            p -> vetor2[i] = rand() % 100; // ATRIBUINDO VALORES ALEATÓRIOS AO VETOR
+            p -> vetor2[i] = rand() % 100;
 
-        for (int i = 0; i < n - 1; i++) // ORDENANDO O VETOR
+        for (int i = 0; i < n - 1; i++)
         {
             for (int j = 0; j < n - i - 1; j++)
             {
@@ -60,7 +56,7 @@ lista *criaVetor(lista *p)
             }
         }
 
-        for (int i = 0; i < n; i++) // IMPRIMINDO O VETOR
+        for (int i = 0; i < n; i++)
             printf("%d\t", p->vetor2[i]);
     }
 
@@ -80,7 +76,7 @@ int buscaSequencial(lista *p, int size)
         if (p->vetor[i] == n)
         {
             printf("Localizado na posicao [%i] do 'vetor 1'.\n", i);
-            return 1;
+            //return 1;
         }
     }
 
