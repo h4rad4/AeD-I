@@ -5,13 +5,15 @@
 int main()
 {
     lista Lista;
-    int n;
 
-    printf("Informe a quantidade de elementos do vetor: ");
-    scanf("%i", &n);
-
-    criaVetor(&Lista, n);
-    criaVetor2(&Lista, n);
+    *v = criaVetor(&Lista);
+    buscaSequencial();
 
     return 0;
 }
+
+/*  if (buscaVetor(p, n, 0) != 1)
+    printf("Not found"); */
+
+/*  if (buscaVetor(p, 0, 30) != 1)
+    printf("Not found"); */
