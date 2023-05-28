@@ -11,11 +11,7 @@ int main()
     printf("Informe a quantidade de elementos do vetor: ");
     scanf("%i", &n);
 
-    lista *v = criaVetor(&Lista, n);
-
-    if (buscaSequencial(v, n) != 1)
-        printf("Not found");
+    lista *v = criaVetor(&Lista, n, 30);
 
     return 0;
 }
-

@@ -9,7 +9,7 @@ typedef struct StructLista
 
 } lista;
 
-lista *criaVetor(lista *p, int n);
-int buscaSequencial(lista *p, int size);
+lista *criaVetor(lista *p, int size1, int size2);
+int buscaSequencial(lista *p, int size1, int size2);
 
 #endif
