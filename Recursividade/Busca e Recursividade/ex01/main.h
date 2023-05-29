@@ -17,7 +17,7 @@ void liberaVetor(lista *p);
 int buscaSequencial(lista *p, int value, int *cont);
 int buscaSequencialOrdenada(lista *p, int value, int *cont);
 int buscaBinariaIterativa (lista *p, int value, int *cont);
-int buscaBinariaRecursiva(lista *p, int value, int left, int right);
+int buscaBinariaRecursiva(lista *p, int value, int left, int right, int *cont);
 
 void imprimirMaiorElemento(lista *p);
 void imprimirMenorElemento(lista *p);

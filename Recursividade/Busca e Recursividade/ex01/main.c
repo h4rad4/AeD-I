@@ -5,7 +5,6 @@
 int main()
 {
     lista *v1, *v2;
-    int cont;
     int n, value;
 
     printf("Informe a quantidade de elementos do vetor: ");
@@ -32,10 +31,21 @@ int main()
     printf("\n\n- Qual valor deseja procurar na lista? ");
     scanf("%d", &value);
 
-    printf("\n-> Busca sequencial: Encontrado na posicao %d. \n Total de laços: %d", buscaSequencial(v2, value, &cont), cont);
-    printf("\n-> Busca sequencial ordenada: Encontrado na posicao %d \n Total de laços: %d", buscaSequencialOrdenada(v2, value, &cont), cont);
-    printf("\n-> Busca binaria iterativa: Encontrado na posicao %d \n Total de laços: %d", buscaBinariaIterativa(v2, value, &cont), cont);
-    printf("\n-> Busca binaria recursiva: Encontrado na posicao %d", buscaBinariaRecursiva(v2, value, 0, 30-1));
-    
+    int cont = 0;
+    int result = buscaSequencial(v2, value, &cont);
+    printf("\n-> Busca sequencial: Encontrado na posicao %d. \n Total de lacos: %d", result, cont);
+
+    cont = 0;
+    result = buscaSequencialOrdenada(v2, value, &cont);
+    printf("\n-> Busca sequencial ordenada: Encontrado na posicao %d. \n Total de lacos: %d", result, cont);
+
+    cont = 0;
+    result = buscaBinariaIterativa(v2, value, &cont);
+    printf("\n-> Busca binaria iterativa: Encontrado na posicao %d. \n Total de lacos: %d", result, cont);
+
+    cont = 0;
+    result = buscaBinariaRecursiva(v2, value, 0, 30 - 1, &cont);
+    printf("\n-> Busca binaria recursiva: Encontrado na posicao %d. \nTotal de lacos: %d", result, cont);
+
     return 0;
 }

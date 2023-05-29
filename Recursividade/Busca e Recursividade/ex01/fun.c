@@ -62,11 +62,11 @@ void liberaVetor(lista *p)
 
 int buscaSequencial(lista *p, int value, int *cont)
 {
-    cont = 0;
+    *cont = 0;
 
     for (int i = 0; i < p->n; i++)
     {
-        *cont++;
+        (*cont)++;
         if (p->vetor[i] == value)
             return i + 1;
     }
@@ -75,30 +75,32 @@ int buscaSequencial(lista *p, int value, int *cont)
 
 int buscaSequencialOrdenada(lista *p, int value, int *cont)
 {
-    cont = 0;
+    *cont = 0;
 
-    for (int i = 0; p->n; i++)
+    for (int i = 0; i < p->n; i++)
     {
-        *cont++;
+        (*cont)++;
         if (p->vetor[i] >= value)
+        {
             if (p->vetor[i] == value)
                 return i + 1;
             else
                 return -1;
+        }
     }
     return -1;
 }
 
 int buscaBinariaIterativa(lista *p, int value, int *cont)
 {
-    cont = 0;
+    *cont = 0;
     int primeiro = 0;
     int ultimo = 30 - 1;
     int meio = -1;
 
     while (primeiro <= ultimo)
     {
-        *cont++;
+        (*cont)++;
         meio = primeiro + (ultimo - primeiro) / 2;
 
         if (value == p->vetor[meio])
@@ -111,33 +113,36 @@ int buscaBinariaIterativa(lista *p, int value, int *cont)
     return -1;
 }
 
-int buscaBinariaRecursiva(lista *p, int value, int left, int right)
+int buscaBinariaRecursiva(lista *p, int value, int left, int right, int *cont)
 {
+    (*cont)++;
+
     if (left > right)
     {
-        return -1;  // Valor não encontrado
+        return -1;
     }
 
     int mid = (left + right) / 2;
 
     if (p->vetor[mid] == value)
     {
-        return mid+1;  // Valor encontrado
+        return mid + 1; // Valor encontrado
     }
     else if (p->vetor[mid] < value)
     {
-        return buscaBinariaRecursiva(p, value, mid + 1, right);  // metade direita
+        return buscaBinariaRecursiva(p, value, mid + 1, right, cont); // metade direita
     }
     else
     {
-        return buscaBinariaRecursiva(p, value, left, mid - 1);  // metade esquerda
+        return buscaBinariaRecursiva(p, value, left, mid - 1, cont); // metade esquerda
     }
 }
+
 
 void imprimirMaiorElemento(lista *p)
 {
     int maior = p->vetor[0];
-    
+
     for (int i = 1; i < p->n; i++)
     {
         if (p->vetor[i] > maior)
