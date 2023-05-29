@@ -3,91 +3,187 @@
 #include <time.h>
 #include "main.h"
 
-lista *criaVetor(lista *p, int n, int n1)
+lista *criaVetor(int n)
 {
-    /* ALOCAÇÃO DE MEMÓRIA*/
-    p -> n = n;
-    p = malloc(sizeof(lista));
-    p -> vetor = (int *)malloc(n * sizeof(int));
-    p -> vetor2 = (int *)malloc(n * sizeof(int));
-    srand(time(NULL));
+    printf("\nAlocando memoria...");
+    lista *p = malloc(sizeof(lista));
+    p->vetor = malloc(n * sizeof(int));
+    p->n = n;
 
-    if (p == NULL)
-        return 0;
-    else
-    {
-        printf("Preenchendo o [vetor 1] com valores aleatorios... \n");
-
-        for (int i = 0; i < n; i++) 
-            p->vetor[i] = rand() % 100; /* ATRIBUINDO VALORES ALEATÓRIOS AO VETOR */
-
-        for (int i = 0; i < n - 1; i++) /* ORDENANDO O VETOR */
-        {
-            for (int j = 0; j < n - i - 1; j++)
-            {
-                if (p->vetor[j] > p->vetor[j + 1])
-                {
-                    int temp = p->vetor[j];
-                    p->vetor[j] = p->vetor[j + 1];
-                    p->vetor[j + 1] = temp;
-                }
-            }
-        }
-
-        for (int i = 0; i < n; i++) /* IMPRIMINDO O VETOR */
-            printf("%d\t", p->vetor[i]);
-
-
-        printf("\nPreenchendo o [vetor 2] com valores aleatorios... \n");
-
-        for (int i = 0; i < 30; i++)
-            p -> vetor2[i] = rand() % 100;
-
-        for (int i = 0; i < n - 1; i++)
-        {
-            for (int j = 0; j < n - i - 1; j++)
-            {
-                if (p -> vetor2[j] > p -> vetor2[j+1])
-                {
-                    int temp = p -> vetor[j];
-                    p -> vetor2[j] = p -> vetor2[j+1];
-                    p -> vetor2[j + 1] = temp;
-                }
-            }
-        }
-
-        for (int i = 0; i < n; i++)
-            printf("%d\t", p->vetor2[i]);
-    }
+    printf("\tAlocado!");
 
     return p;
 }
 
-
-int buscaSequencial(lista *p, int size1, int size2)
+void preencherVetor(lista *p)
 {
-    int n;
+    printf("\n");
 
-    printf("\nQual valor deseja buscar no vetor? ");
-    scanf("%d", &n);
+    for (int i = 0; i < p->n; i++)
+        p->vetor[i] = rand() % 100;
+}
 
-    for (int i = 0; i < size1; i++)
+void preencherVetorOrdenado(lista *p)
+{
+    printf("\n");
+
+    for (int i = 0; i < p->n; i++)
+        p->vetor[i] = rand() % 100;
+
+    for (int i = 0; i < 29; i++)
     {
-        if (p->vetor[i] == n)
+        for (int j = 0; j < 29 - i; j++)
         {
-            printf("Localizado na posicao [%i] do 'vetor 1'.\n", i);
-            return 1;
+            if (p->vetor[j] > p->vetor[j + 1])
+            {
+                int temp = p->vetor[j];
+                p->vetor[j] = p->vetor[j + 1];
+                p->vetor[j + 1] = temp;
+            }
+        }
+    }
+}
+
+void printVetor(lista *p)
+{
+    printf("Vetor = ");
+
+    for (int i = 0; i < p->n; i++)
+        printf("%d ", p->vetor[i]);
+
+    printf("\n");
+}
+
+void liberaVetor(lista *p)
+{
+    free(p->vetor);
+    free(p);
+}
+
+int buscaSequencial(lista *p, int value, int *cont)
+{
+    cont = 0;
+
+    for (int i = 0; i < p->n; i++)
+    {
+        *cont++;
+        if (p->vetor[i] == value)
+            return i + 1;
+    }
+    return -1;
+}
+
+int buscaSequencialOrdenada(lista *p, int value, int *cont)
+{
+    cont = 0;
+
+    for (int i = 0; p->n; i++)
+    {
+        *cont++;
+        if (p->vetor[i] >= value)
+            if (p->vetor[i] == value)
+                return i + 1;
+            else
+                return -1;
+    }
+    return -1;
+}
+
+int buscaBinariaIterativa(lista *p, int value, int *cont)
+{
+    cont = 0;
+    int primeiro = 0;
+    int ultimo = 30 - 1;
+    int meio = -1;
+
+    while (primeiro <= ultimo)
+    {
+        *cont++;
+        meio = primeiro + (ultimo - primeiro) / 2;
+
+        if (value == p->vetor[meio])
+            return meio + 1;
+        else if (value > p->vetor[meio])
+            primeiro = meio + 1;
+        else
+            ultimo = meio - 1;
+    }
+    return -1;
+}
+
+int buscaBinariaRecursiva(lista *p, int value, int left, int right)
+{
+    if (left > right)
+    {
+        return -1;  // Valor não encontrado
+    }
+
+    int mid = (left + right) / 2;
+
+    if (p->vetor[mid] == value)
+    {
+        return mid+1;  // Valor encontrado
+    }
+    else if (p->vetor[mid] < value)
+    {
+        return buscaBinariaRecursiva(p, value, mid + 1, right);  // metade direita
+    }
+    else
+    {
+        return buscaBinariaRecursiva(p, value, left, mid - 1);  // metade esquerda
+    }
+}
+
+void imprimirMaiorElemento(lista *p)
+{
+    int maior = p->vetor[0];
+    
+    for (int i = 1; i < p->n; i++)
+    {
+        if (p->vetor[i] > maior)
+        {
+            maior = p->vetor[i];
         }
     }
 
-    for (int i = 0; i < size2; i++)
+    printf("Maior elemento da lista: %d\n", maior);
+}
+
+void imprimirMenorElemento(lista *p)
+{
+    int menor = p->vetor[0];
+
+    for (int i = 1; i < p->n; i++)
     {
-        if (p->vetor2[i] == n)
+        if (p->vetor[i] < menor)
         {
-            printf("Localizado na posicao [%i] do 'vetor 2'.\n", i);
-            return 1;
+            menor = p->vetor[i];
         }
     }
 
-    return 0;
+    printf("Menor elemento da primeira lista: %d\n", menor);
+}
+
+void imprimirSomaElementos(lista *p)
+{
+    int soma = 0;
+
+    for (int i = 0; i < p->n; i++)
+    {
+        soma += p->vetor[i];
+    }
+
+    printf("Soma dos elementos da primeira lista: %d\n", soma);
+}
+
+void imprimirProdutoElementos(lista *p)
+{
+    int produto = 1;
+
+    for (int i = 0; i < p->n; i++)
+    {
+        produto *= p->vetor[i];
+    }
+
+    printf("Produto dos elementos da primeira lista: %d\n", produto);
 }

@@ -5,11 +5,24 @@ typedef struct StructLista
 {
     int n;
     int *vetor;
-    int *vetor2;
 
 } lista;
 
-lista *criaVetor(lista *p, int size1, int size2);
-int buscaSequencial(lista *p, int size1, int size2);
+lista *criaVetor(int size);
+void preencherVetor(lista *p);
+void preencherVetorOrdenado(lista *p);
+void printVetor(lista *p);
+void liberaVetor(lista *p);
+
+int buscaSequencial(lista *p, int value, int *cont);
+int buscaSequencialOrdenada(lista *p, int value, int *cont);
+int buscaBinariaIterativa (lista *p, int value, int *cont);
+int buscaBinariaRecursiva(lista *p, int value, int left, int right);
+
+void imprimirMaiorElemento(lista *p);
+void imprimirMenorElemento(lista *p);
+
+void imprimirSomaElementos(lista *p);
+void imprimirProdutoElementos(lista *p);
 
 #endif
