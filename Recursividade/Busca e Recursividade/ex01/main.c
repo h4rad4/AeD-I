@@ -47,5 +47,12 @@ int main()
     result = buscaBinariaRecursiva(v2, value, 0, 30 - 1, &cont);
     printf("\n-> Busca binaria recursiva: Encontrado na posicao %d. \nTotal de lacos: %d", result, cont);
 
+    printf("\n \nLiberando a memoria alocada ...");
+
+    if (liberaVetor(v1) != 0)
+        printf("\n[Vetor 1] liberado! ");
+    if (liberaVetor(v2) != 0)
+        printf("\n[Vetor 2] liberado! ");
+
     return 0;
 }

@@ -54,10 +54,12 @@ void printVetor(lista *p)
     printf("\n");
 }
 
-void liberaVetor(lista *p)
+int liberaVetor(lista *p)
 {
     free(p->vetor);
     free(p);
+
+    return 1;
 }
 
 int buscaSequencial(lista *p, int value, int *cont)
