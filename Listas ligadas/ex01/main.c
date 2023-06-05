@@ -29,7 +29,6 @@ int main()
     ListaAlunos lista;
     inicializarLista(&lista);
 
-    // Inserir elementos
     Aluno aluno;
 
     for (int i = 0; i < MAX; i++)
@@ -41,6 +40,9 @@ int main()
 
     printf("\n[Lista inicial]\n");
     imprimirLista(&lista);
+
+    printf("\nQtd. de elementos validos: %d", tamanhoLista(&lista));
+    verificarLista(&lista);
 
     int antigaMatricula, novaMatricula;
     printf("\nInsira a matricula que deseja alterar e seu novo valor, respectivamente. ");

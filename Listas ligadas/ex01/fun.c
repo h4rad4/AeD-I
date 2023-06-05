@@ -29,7 +29,39 @@ void liberarLista(ListaAlunos *lista)
 
 int tamanhoLista(ListaAlunos *lista)
 {
-    return lista->quantidade;
+    int tam = 0;
+    No *i = lista->inicio;
+
+    while (i != NULL)
+    {
+        tam++;
+        i = i->proximo;
+    }
+
+    return tam;
+}
+
+void verificarLista(ListaAlunos *lista)
+{
+    No *i = lista->inicio;
+
+    if (i == NULL)
+    {
+        printf("\nA lista esta vazia.");
+        return;
+    }
+
+    int cont = 0;
+    while (i != NULL)
+    {
+        cont++;
+        i = i->proximo;
+    }
+
+    if (cont >= lista->quantidade)
+        printf("\nA lista esta cheia.");
+    else
+        printf("\nA lista não esta cheia.\n ");
 }
 
 void inserirAluno(ListaAlunos *lista, Aluno aluno)
