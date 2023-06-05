@@ -6,7 +6,7 @@
 
 #define MAX 100
 
-void inicializarLista(ListaAlunos *lista) // ptr para ListaALunos
+void inicializarLista(ListaAlunos *lista)
 {
     lista->inicio = NULL;
     lista->quantidade = 0;
