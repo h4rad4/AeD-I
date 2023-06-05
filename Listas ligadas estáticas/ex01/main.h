@@ -22,8 +22,8 @@ typedef struct ListaAunos{
 
 int tamanhoLista(ListaAlunos *lista);
 void inicializarLista(ListaAlunos *lista);
-void liberarLista(ListaAlunos *lista);
-void inserirAluno(ListaAlunos *lista, Aluno aluno);
 void imprimirLista(ListaAlunos *lista);
+void inserirAluno(ListaAlunos *lista, Aluno aluno);
 void excluirAluno(ListaAlunos *lista, int mat);
 void alterarMatricula(ListaAlunos *lista, int matriculaAntiga, int novaMatricula);
+void liberarLista(ListaAlunos *lista);

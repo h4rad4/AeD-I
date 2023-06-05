@@ -22,7 +22,7 @@ Implementar e testar as seguintes operações sobre esse TDA:
 #include <stdlib.h>
 #include "main.h"
 
-#define MAX 100
+#define MAX 3
 
 int main()
 {
@@ -30,23 +30,27 @@ int main()
     inicializarLista(&lista);
 
     // Inserir elementos
-    Aluno aluno1 = {123, "Joao", 20};
-    Aluno aluno2 = {456, "Maria", 22};
-    Aluno aluno3 = {789, "Pedro", 19};
-    inserirAluno(&lista, aluno1);
-    inserirAluno(&lista, aluno2);
-    inserirAluno(&lista, aluno3);
+    Aluno aluno;
+
+    for (int i = 0; i < MAX; i++)
+    {
+        printf("Insira a MATRICULA, NOME e IDADE do aluno %d, respectivamente. ", i+1);
+        scanf("%d %s %d", &aluno.matricula, &aluno.nome, &aluno.idade);
+        inserirAluno(&lista, aluno);
+    }
 
     printf("\n[Lista inicial]\n");
     imprimirLista(&lista);
 
-    // Alterando matricula
-    alterarMatricula(&lista, 456, 111);
+    int antigaMatricula, novaMatricula;
+    printf("\nInsira a matricula que deseja alterar e seu novo valor, respectivamente. ");
+    scanf("%d %d", &antigaMatricula, &novaMatricula);
+
+    alterarMatricula(&lista, antigaMatricula, novaMatricula);
 
     printf("\n[Lista apos alteracao]\n");
     imprimirLista(&lista);
 
-    // Liberando lista
     liberarLista(&lista);
 
     return 0;
