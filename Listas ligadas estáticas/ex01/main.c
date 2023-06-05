@@ -22,7 +22,7 @@ Implementar e testar as seguintes operações sobre esse TDA:
 #include <stdlib.h>
 #include "main.h"
 
-#define MAX 3
+#define MAX 100
 
 int main()
 {
