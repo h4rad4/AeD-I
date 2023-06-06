@@ -4,8 +4,6 @@
 
 #include "main.h"
 
-#define MAX 100
-
 void inicializarLista(ListaAlunos *lista)
 {
     lista->inicio = NULL;
@@ -66,7 +64,7 @@ void verificarLista(ListaAlunos *lista)
 
 void inserirAluno(ListaAlunos *lista, Aluno aluno)
 {
-    No *novo = (No *)malloc(MAX * sizeof(No));
+    No *novo = (No *)malloc(sizeof(No));
 
     /* Inicializando novo nó */
     novo->aluno = aluno;
