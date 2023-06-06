@@ -120,31 +120,29 @@ No *B_OperatorL1(No *inicio)
     return anterior;
 }
 
-ListaLigada intercalarLista(ListaLigada *lista, ListaLigada *copia)
+No *intercalarLista(No *lista, No *copia)
 {
     printf("oi");
-    ListaLigada listaIntercalada;
 
     No *start = (No *)malloc(sizeof(No));
 
-    listaIntercalada.inicio = start;
-    listaIntercalada.inicio = lista->inicio;
-    listaIntercalada.inicio->proximo = copia->inicio;
+    start = lista;
+    start->proximo = copia;
 
     int i = 0;
-    while (listaIntercalada.inicio->proximo != NULL)
+    while (start->proximo != NULL)
     {
         i++;
 
         if (i % 2 == 0)
         {
-            listaIntercalada.inicio->proximo = copia->inicio->proximo;
+            start->proximo = copia->proximo;
         }
         else
         {
-            listaIntercalada.inicio->proximo = lista->inicio->proximo;
+            start->proximo = lista->proximo;
         }
     }
 
-    return listaIntercalada;
+    return start;
 }

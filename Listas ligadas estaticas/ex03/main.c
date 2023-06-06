@@ -39,8 +39,8 @@ int main(int argc, char const *argv[])
     imprimirLista(copia->inicio);
 
     printf("Lista Intercalada: ");
-    ListaLigada Op3 = intercalarLista(op1, op2);
-    imprimirLista(&Op3);
+    No *Op3 = intercalarLista(Op1, Op2);
+    imprimirLista(Op3);
 
     liberarLista(Op1);
     liberarLista(Op2);

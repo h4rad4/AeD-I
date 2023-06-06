@@ -17,4 +17,4 @@ void liberarLista(No *inicio);
 ListaLigada *copiarListaLigada(ListaLigada *lista);
 No *A_OperatorL1(No *inicio);
 No *B_OperatorL1(No *inicio);
-ListaLigada intercalarLista(ListaLigada *lista, ListaLigada *copia);
+No *intercalarLista(No *lista, No *copia);
