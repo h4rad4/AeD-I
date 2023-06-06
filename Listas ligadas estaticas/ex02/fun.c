@@ -33,6 +33,46 @@ void inserirFimLista(ListaLigada *lista, int elemento)
     lista->quantidade++;
 }
 
+void imprimirLista(No *inicio)
+{
+    No *atual = inicio;
+
+    while (atual != NULL)
+    {
+        printf("%d", atual->elemento);
+        atual = atual->proximo;
+    }
+
+    printf("\n");
+}
+
+void liberarLista(No *inicio)
+{
+    No *atual = inicio;
+
+    while (atual != NULL)
+    {
+        No *proximo = atual->proximo;
+        free(atual);
+        atual = proximo;
+    }
+}
+
+ListaLigada *copiarListaLigada(ListaLigada *lista)
+{
+    ListaLigada *novaLista;
+    inicializarLista(novaLista);
+
+    No *atual = lista->inicio;
+    while (atual != NULL)
+    {
+        inserirFimLista(novaLista, atual->elemento);
+        atual = atual->proximo;
+    }
+
+    return novaLista;
+}
+
 No *A_OperatorL1(No *inicio)
 {
     if (inicio == NULL || inicio->proximo == NULL)
@@ -78,29 +118,4 @@ No *B_OperatorL1(No *inicio)
     }
 
     return anterior;
-}
-
-void imprimirLista(No *inicio)
-{
-    No *atual = inicio;
-
-    while (atual != NULL)
-    {
-        printf("%d", atual->elemento);
-        atual = atual->proximo;
-    }
-
-    printf("\n");
-}
-
-void liberarLista(No *inicio)
-{
-    No *atual = inicio;
-    
-    while (atual != NULL)
-    {
-        No *proximo = atual->proximo;
-        free(atual);
-        atual = proximo;
-    }
 }
