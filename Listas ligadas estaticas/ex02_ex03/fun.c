@@ -69,11 +69,9 @@ Lista percorrerListaB(Lista lista)
     Lista novaLista;
     inicializarLista(&novaLista);
 
-    int atual = lista.cabeca;
-    while (atual != -1)
+    for (int i = lista.tamanho - 1; i >= 0; i--)
     {
-        inserirElemento(&novaLista, lista.nos[atual].dado);
-        atual = lista.nos[atual].proximo;
+        inserirElemento(&novaLista, lista.nos[i].dado);
     }
 
     return novaLista;
@@ -126,14 +124,16 @@ void concatenarListas(Lista *l1, Lista *l2)
 }
 
 // Intercala os elementos das listas l1 e l2
-Lista intercalarListas(Lista *l1, Lista *l2) {
+Lista intercalarListas(Lista *l1, Lista *l2)
+{
     Lista listaIntercalada;
     inicializarLista(&listaIntercalada);
 
     int atualL1 = l1->cabeca;
     int atualL2 = l2->cabeca;
 
-    while (atualL1 != -1 && atualL2 != -1) {
+    while (atualL1 != -1 && atualL2 != -1)
+    {
         inserirElemento(&listaIntercalada, l1->nos[atualL1].dado);
         inserirElemento(&listaIntercalada, l2->nos[atualL2].dado);
 
@@ -142,12 +142,14 @@ Lista intercalarListas(Lista *l1, Lista *l2) {
     }
 
     // Caso uma lista tenha mais elementos que a outra
-    while (atualL1 != -1) {
+    while (atualL1 != -1)
+    {
         inserirElemento(&listaIntercalada, l1->nos[atualL1].dado);
         atualL1 = l1->nos[atualL1].proximo;
     }
 
-    while (atualL2 != -1) {
+    while (atualL2 != -1)
+    {
         inserirElemento(&listaIntercalada, l2->nos[atualL2].dado);
         atualL2 = l2->nos[atualL2].proximo;
     }

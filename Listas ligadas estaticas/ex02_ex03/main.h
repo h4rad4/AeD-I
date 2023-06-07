@@ -11,8 +11,8 @@ typedef struct
 {
     No nos[MAX];
     int cabeca;
-    int tamanho;
     int cauda;
+    int tamanho;
 
 } Lista;
 
