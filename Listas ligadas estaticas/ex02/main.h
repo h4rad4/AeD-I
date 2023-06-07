@@ -1,22 +1,26 @@
-typedef struct No {
-    int elemento;
-    struct No* proximo;
+#define MAX 100
+
+typedef struct
+{
+    int dado;
+    int proximo; // Índice do próximo elemento (-1 se for o último elemento)
 
 } No;
 
-typedef struct {
-    No* inicio;
-    int quantidade;
+typedef struct
+{
+    No nos[MAX];
+    int cabeca;  // Índice do primeiro elemento (-1 se a lista estiver vazia)
+    int tamanho; // Tamanho atual da lista
+    int cauda;   // Índice do último elemento (-1 se a lista estiver vazia)
 
-} ListaLigada;
+} Lista;
 
-void inicializarLista(ListaLigada *lista);
-void inserirFimLista(ListaLigada *lista, int elemento);
-void imprimirLista(No *inicio);
-void liberarLista(No *inicio);
-ListaLigada *copiarListaLigada(ListaLigada *lista);
-No *A_OperatorL1(No *inicio);
-No *B_OperatorL1(No *inicio);
-
-
-ListaLigada *intercalarLista(ListaLigada *lista, ListaLigada *copia);
+void inicializarLista(Lista *lista);
+void inserirElemento(Lista *lista, int valor);
+void exibirLista(Lista lista);
+void copiarLista(Lista *l1, Lista *l2);
+void concatenarListas(Lista *l1, Lista *l2);
+Lista percorrerListaA(Lista lista);
+Lista percorrerListaB(Lista lista);
+Lista intercalarListas(Lista *l1, Lista *l2);

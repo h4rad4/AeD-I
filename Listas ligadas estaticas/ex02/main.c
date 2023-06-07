@@ -6,44 +6,51 @@
 
 int main(int argc, char const *argv[])
 {
-    ListaLigada lista;
-    inicializarLista(&lista);
+    Lista lista1;
+    inicializarLista(&lista1);
 
-    int L;
+    inserirElemento(&lista1, 1);
+    inserirElemento(&lista1, 2);
+    inserirElemento(&lista1, 3);
 
-    for (int i = 0; i < N; i++)
-    {
-        printf("Insira o elemento L%d. ", i + 1);
-        scanf("%d", &L);
+    printf("Lista 1: ");
+    exibirLista(lista1);
 
-        inserirFimLista(&lista, L);
-    }
+    Lista lista2;
+    inicializarLista(&lista2);
 
-    printf("\n");
-    printf("Lista Original: ");
-    imprimirLista(lista.inicio);
+    // Copiar lista1 para lista2
+    copiarLista(&lista1, &lista2);
+    printf("Lista 2 (copia de lista 1): ");
+    exibirLista(lista2);
 
-    ListaLigada *copia;
-    inicializarLista(copia);
+    Lista lista3;
+    inicializarLista(&lista3);
 
-    printf("Lista Copiada: ");
-    copia = copiarListaLigada(&lista);
-    imprimirLista(copia->inicio);
+    inserirElemento(&lista3, 4);
+    inserirElemento(&lista3, 5);
+    inserirElemento(&lista3, 6);
 
-    No *Op1 = A_OperatorL1(lista.inicio);
-    printf("Lista operada (A): ");
-    imprimirLista(Op1);
+    printf("Lista 3: ");
+    exibirLista(lista3);
 
-    No *Op2 = B_OperatorL1(copia->inicio);
-    printf("Lista operada (B): ");
-    imprimirLista(Op2);
+    Lista novaListaA = percorrerListaA(lista1);
+    printf("Nova lista (a): ");
+    exibirLista(novaListaA);
 
-    printf("Lista Intercalada: ");
-    ListaLigada *Op3 = intercalarLista(&lista, copia);
+    Lista novaListaB = percorrerListaB(lista2);
+    printf("Nova lista (b): ");
+    exibirLista(novaListaB);
 
+    // Concatenar lista1 com lista2
+    concatenarListas(&lista1, &lista2);
+    printf("Lista apos concatenacao: ");
+    exibirLista(lista1);
 
-    liberarLista(Op1);
-    liberarLista(Op2);
+    // Intercalar lista1 e lista3
+    Lista listaIntercalada = intercalarListas(&lista1, &lista3);
+    printf("Lista Intercalada (lista1 e lista3): ");
+    exibirLista(listaIntercalada);
 
     return 0;
 }

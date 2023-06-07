@@ -1,157 +1,156 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #include "main.h"
 
-void inicializarLista(ListaLigada *lista)
+#define MAX 100 // Tamanho máximo da lista
+
+void inicializarLista(Lista *lista)
 {
-    lista->inicio = NULL;
-    lista->quantidade = 0;
+    lista->cabeca = -1;
+    lista->cauda = -1;
+    lista->tamanho = 0;
 }
 
-void inserirFimLista(ListaLigada *lista, int elemento)
+void inserirElemento(Lista *lista, int valor)
 {
-    No *novo = (No *)malloc(sizeof(No));
-    novo->elemento = elemento;
-    novo->proximo = NULL;
-
-    if (lista->inicio == NULL)
+    if (lista->tamanho == MAX)
     {
-        lista->inicio = novo;
+        printf("lista cheia. \n");
+        return;
+    }
+
+    No novo;
+    novo.dado = valor;
+    novo.proximo = -1;
+
+    if (lista->tamanho == 0)
+    {
+        lista->nos[0] = novo;
+        lista->cabeca = 0;
+        lista->cauda = 0;
     }
     else
     {
-        No *atual = lista->inicio;
-
-        while (atual->proximo != NULL)
-        {
-            atual = atual->proximo;
-        }
-        atual->proximo = novo;
+        lista->nos[lista->cauda].proximo = lista->tamanho;
+        lista->nos[lista->tamanho] = novo;
+        lista->cauda = lista->tamanho;
     }
 
-    lista->quantidade++;
+    lista->tamanho++;
 }
 
-void imprimirLista(No *inicio)
+Lista percorrerListaA(Lista lista)
 {
-    No *atual = inicio;
+    Lista novaLista;
+    inicializarLista(&novaLista);
 
-    while (atual != NULL)
+    int atual = lista.cabeca;
+    while (atual != -1)
     {
-        printf("%d", atual->elemento);
-        atual = atual->proximo;
+        inserirElemento(&novaLista, lista.nos[atual].dado);
+        atual = lista.nos[atual].proximo;
     }
 
-    printf("\n");
-}
-
-void liberarLista(No *inicio)
-{
-    No *atual = inicio;
-
-    while (atual != NULL)
+    if (novaLista.tamanho > 1)
     {
-        No *proximo = atual->proximo;
-        free(atual);
-        atual = proximo;
-    }
-}
-
-ListaLigada *copiarListaLigada(ListaLigada *lista)
-{
-    ListaLigada *novaLista;
-    inicializarLista(novaLista);
-
-    No *atual = lista->inicio;
-    while (atual != NULL)
-    {
-        inserirFimLista(novaLista, atual->elemento);
-        atual = atual->proximo;
+        // Move o primeiro p/ final da nova lista
+        int primeiro = novaLista.cabeca;
+        novaLista.cabeca = novaLista.nos[primeiro].proximo;
+        novaLista.nos[primeiro].proximo = -1;
+        novaLista.nos[novaLista.cauda].proximo = primeiro;
+        novaLista.cauda = primeiro;
     }
 
     return novaLista;
 }
 
-No *A_OperatorL1(No *inicio)
+Lista percorrerListaB(Lista lista)
 {
-    if (inicio == NULL || inicio->proximo == NULL)
+    Lista novaLista;
+    inicializarLista(&novaLista);
+
+    int atual = lista.cabeca;
+    while (atual != -1)
     {
-        return inicio;
+        inserirElemento(&novaLista, lista.nos[atual].dado);
+        atual = lista.nos[atual].proximo;
     }
 
-    No *atual = inicio->proximo;
-    No *novoInicio = NULL;
-    No *fim = NULL;
-
-    while (atual != NULL)
-    {
-        fim = atual;
-        atual = atual->proximo;
-    }
-
-    fim->proximo = inicio;
-    novoInicio = inicio->proximo;
-    inicio->proximo = NULL;
-
-    return novoInicio;
+    return novaLista;
 }
 
-No *B_OperatorL1(No *inicio)
+void exibirLista(Lista lista)
 {
-    if (inicio == NULL || inicio->proximo == NULL)
+    int atual = lista.cabeca;
+    while (atual != -1)
     {
-        return inicio;
+        printf("%d ", lista.nos[atual].dado);
+        atual = lista.nos[atual].proximo;
     }
-
-    No *anterior = NULL;
-    No *atual = inicio;
-    No *proximo = NULL;
-
-    while (atual != NULL)
-    {
-        proximo = atual->proximo;
-        atual->proximo = anterior;
-
-        anterior = atual;
-        atual = proximo;
-    }
-
-    return anterior;
+    printf("\n");
 }
 
-
-
-
-
-ListaLigada *intercalarLista(ListaLigada *lista, ListaLigada *copia)
+void copiarLista(Lista *l1, Lista *l2)
 {
-    ListaLigada *ListaIntercalada = (ListaLigada *)malloc(sizeof(ListaLigada));
-    ListaIntercalada->inicio = malloc(sizeof(No));
+    inicializarLista(l2);
 
-    ListaIntercalada->inicio = lista->inicio;
-    ListaIntercalada->inicio->proximo = copia->inicio;
-
-    printf("%d", copia->inicio);
-
-    int i = 0;
-    while (lista->inicio->proximo != NULL)
+    int atual = l1->cabeca;
+    while (atual != -1)
     {
-        i++;
+        inserirElemento(l2, l1->nos[atual].dado);
+        atual = l1->nos[atual].proximo;
+    }
+}
 
-        if (i % 2 == 0)
-        {
-            ListaIntercalada->inicio->proximo = copia->inicio->proximo;
-            printf("%d\n", copia->inicio->proximo);
-        }
-        else
-        {
-            ListaIntercalada->inicio->proximo = lista->inicio->proximo;
-            printf("%d\n", lista->inicio->proximo);
-
-        }
-        
+void concatenarListas(Lista *l1, Lista *l2)
+{
+    if (l2->tamanho == 0)
+    {
+        return;
     }
 
-    return ListaIntercalada;
+    if (l1->tamanho == 0)
+    {
+        *l1 = *l2;
+        return;
+    }
+
+    l1->nos[l1->cauda].proximo = l1->tamanho;
+
+    int atual = l2->cabeca;
+    while (atual != -1)
+    {
+        inserirElemento(l1, l2->nos[atual].dado);
+        atual = l2->nos[atual].proximo;
+    }
+}
+
+// Intercala os elementos das listas l1 e l2
+Lista intercalarListas(Lista *l1, Lista *l2) {
+    Lista listaIntercalada;
+    inicializarLista(&listaIntercalada);
+
+    int atualL1 = l1->cabeca;
+    int atualL2 = l2->cabeca;
+
+    while (atualL1 != -1 && atualL2 != -1) {
+        inserirElemento(&listaIntercalada, l1->nos[atualL1].dado);
+        inserirElemento(&listaIntercalada, l2->nos[atualL2].dado);
+
+        atualL1 = l1->nos[atualL1].proximo;
+        atualL2 = l2->nos[atualL2].proximo;
+    }
+
+    // Caso uma lista tenha mais elementos que a outra
+    while (atualL1 != -1) {
+        inserirElemento(&listaIntercalada, l1->nos[atualL1].dado);
+        atualL1 = l1->nos[atualL1].proximo;
+    }
+
+    while (atualL2 != -1) {
+        inserirElemento(&listaIntercalada, l2->nos[atualL2].dado);
+        atualL2 = l2->nos[atualL2].proximo;
+    }
+
+    return listaIntercalada;
 }
