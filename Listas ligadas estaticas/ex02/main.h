@@ -3,16 +3,16 @@
 typedef struct
 {
     int dado;
-    int proximo; // Índice do próximo elemento (-1 se for o último elemento)
+    int proximo;
 
 } No;
 
 typedef struct
 {
     No nos[MAX];
-    int cabeca;  // Índice do primeiro elemento (-1 se a lista estiver vazia)
-    int tamanho; // Tamanho atual da lista
-    int cauda;   // Índice do último elemento (-1 se a lista estiver vazia)
+    int cabeca;
+    int tamanho;
+    int cauda;
 
 } Lista;
 
