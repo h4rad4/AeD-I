@@ -10,16 +10,15 @@ int main(int argc, char const *argv[])
     Lista *P2 = (Lista *)malloc(sizeof(Lista));
     P2->inicio = NULL;
 
-    P1 = criarPolinomio(P1, 2, 3);
-    P1 = criarPolinomio(P1, 2, 2);
+    P1 = criarPolinomio(P1, 3, 5);
     P1 = criarPolinomio(P1, 2, 1);
+    P1 = criarPolinomio(P1, -1, 0);
 
-    P2 = criarPolinomio(P2, 4, 3);
-    P2 = criarPolinomio(P2, 4, 2);
-    P2 = criarPolinomio(P2, 4, 0);
+    P2 = criarPolinomio(P2, 6, 1);
+    P2 = criarPolinomio(P2, 12, 0);
+    //P2 = criarPolinomio(P2, 4, 0);
 
-    imprimirPolinomio(P1);
-    imprimirPolinomio(P2);
+
 
     Lista *result = somaPolinomio(P1, P2);
     
