@@ -7,14 +7,20 @@
 int main(int argc, char const *argv[])
 {
     Node *head = NULL;
+    Node *listaK;
 
     for (int i = 0; i < size; i++)
     {
-        // Preenchando a lista com valores randômicos
-        inserirInicioLista(&head, rand() % 100);
+        // Preenchendo a lista com valores randômicos
+        head = inserirInicioLista(head, rand() % 100);
     }
 
     imprimirLista(head);
+
+    printf("\nOrdenando lista...\n");
+    criarListaOrdenada(head, &listaK);
+
+    imprimirLista(listaK);
 
     return 0;
 }

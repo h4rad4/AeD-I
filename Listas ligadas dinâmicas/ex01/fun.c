@@ -2,20 +2,19 @@
 #include <stdlib.h>
 #include "main.h"
 
-void inserirLista(Node **head, int valor)
+Node *inserirInicioLista(Node *head, int valor)
 {
     Node *novoNo = (Node *)malloc(sizeof(Node));
     novoNo->valor = valor;
-    novoNo->proximo = *head;
+    novoNo->proximo = head;
     novoNo->anterior = NULL;
 
-    // Atualizando a referência para o nó anterior
-    if (*head != NULL)
+    if (head != NULL)
     {
-        (*head)->anterior = novoNo;
+        head->anterior = novoNo;
     }
 
-    *head = novoNo;
+    return novoNo;
 }
 
 void imprimirLista(Node *node)
@@ -28,50 +27,33 @@ void imprimirLista(Node *node)
     }
 }
 
-void criarListaOrdenada(Node **headL, Node **headK)
+void criarListaOrdenada(Node *listaL, Node **listaK)
 {
-    Node *maior;
-    Node *head;
-
-    while (headL != NULL)
+    while (listaL != NULL)
     {
-        Node *maior = headL;
-        Node *head = (*headL)->proximo;
+        Node *maior = listaL;
+        Node *atual = listaL->proximo;
 
-        // Encontra o nó com o maior valor na lista L
-
-        while (head != NULL)
+        while (atual != NULL)
         {
-            if (head->proximo > maior->valor)
-            {
-                maior = head;
-            }
-            head = head->proximo;
+            if (atual->valor > maior->valor)
+                maior = atual;
+            atual = atual->proximo;
         }
 
-        // Remove o nó da lista L
-
-        if (head->anterior != NULL)
-        {
+        if (maior->anterior != NULL)
             maior->anterior->proximo = maior->proximo;
-        }
         else
-        {
-            headL = maior->proximo;
-        }
+            listaL = maior->proximo;
 
         if (maior->proximo != NULL)
-        {
             maior->proximo->anterior = maior->anterior;
-        }
 
-        // Insere o nó no início da lista K
+        maior->proximo = *listaK;
+        if (*listaK != NULL)
+            (*listaK)->anterior = maior;
 
-        maior->proximo = *headK;
-        if (*headK != NULL)
-            (*headK)->anterior = maior;
-
-        *headK = maior;
+        *listaK = maior;
         maior->anterior = NULL;
     }
 }

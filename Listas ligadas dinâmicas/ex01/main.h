@@ -15,7 +15,8 @@ typedef struct Lista
 
 } List;
 
-void inserirLista(Node **head, int valor)
+Node *inserirInicioLista(Node *head, int valor);
 void imprimirLista(Node *node);
+void criarListaOrdenada(Node* listaL, Node** listaK);
 
 #endif
