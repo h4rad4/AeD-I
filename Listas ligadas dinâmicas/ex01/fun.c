@@ -42,7 +42,7 @@ void criarListaOrdenada(Node *listaL, Node **listaK)
         }
 
         if (maior->anterior != NULL)
-            maior->anterior->proximo = maior->proximo;
+            maior->anterior->proximo = maior->proximo; // Apaga o elemento da lista
         else
             listaL = maior->proximo;
 
