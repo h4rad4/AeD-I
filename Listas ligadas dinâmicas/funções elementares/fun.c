@@ -116,3 +116,4 @@ void removerMaiorParaMenor(Lista *p)
         free(maiorNo);
     }
 }
+

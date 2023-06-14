@@ -34,21 +34,23 @@ void criarListaOrdenada(Node *listaL, Node **listaK)
         Node *maior = listaL;
         Node *atual = listaL->proximo;
 
+        // Encontrando o maior elemento
         while (atual != NULL)
         {
             if (atual->valor > maior->valor)
                 maior = atual;
             atual = atual->proximo;
         }
-
+        // Apagando o elemento da lista
         if (maior->anterior != NULL)
-            maior->anterior->proximo = maior->proximo; // Apaga o elemento da lista
+            maior->anterior->proximo = maior->proximo; 
         else
             listaL = maior->proximo;
 
         if (maior->proximo != NULL)
             maior->proximo->anterior = maior->anterior;
 
+        // Inserindo elemento na lista
         maior->proximo = *listaK;
         if (*listaK != NULL)
             (*listaK)->anterior = maior;
