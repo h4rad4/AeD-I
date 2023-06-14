@@ -58,13 +58,11 @@ Lista *somaPolinomio(Lista *p1, Lista *p2)
     {
         novo->inicio = p1->inicio;
         p1->inicio = p1->inicio->proximo;
-
     }
     else if (p2->inicio->exp > p1->inicio->exp)
     {
         novo->inicio = p2->inicio;
         p2->inicio = p2->inicio->proximo;
-
     }
     else
     {
@@ -73,13 +71,10 @@ Lista *somaPolinomio(Lista *p1, Lista *p2)
 
         p1->inicio = p1->inicio->proximo;
         p2->inicio = p2->inicio->proximo;
-
     }
 
     while (p1->inicio != NULL || p2->inicio != NULL)
     {
-        printf("oii");
-        
         if (p1->inicio->exp > p2->inicio->exp)
         {
             novo->inicio->proximo = p1->inicio;
@@ -89,15 +84,16 @@ Lista *somaPolinomio(Lista *p1, Lista *p2)
         {
             novo->inicio->proximo = p2->inicio;
             p2->inicio = p2->inicio->proximo;
-
         }
         else
         {
             novo->inicio->proximo->base = p1->inicio->base + p2->inicio->base;
             novo->inicio->proximo->exp = p1->inicio->exp;
 
+            printf("%d", novo->inicio->proximo->exp);
             p1->inicio = p1->inicio->proximo;
             p2->inicio = p2->inicio->proximo;
+
 
         }
     }
