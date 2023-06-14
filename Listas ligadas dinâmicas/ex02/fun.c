@@ -103,43 +103,43 @@ Lista *somaPolinomio(Lista *p1, Lista *p2)
     Lista *resultado = (Lista *)malloc(sizeof(Lista));
     resultado->inicio = NULL;
 
-    Node *termo1 = p1->inicio;
-    Node *termo2 = p2->inicio;
+    Node *poli1 = p1->inicio;
+    Node *poli2 = p2->inicio;
 
-    while (termo1 != NULL && termo2 != NULL)
+    while (poli1 != NULL && poli2 != NULL)
     {
-        if (termo1->exp > termo2->exp)
+        if (poli1->exp < poli2->exp)
         {
-            criarPolinomio(resultado, termo1->base, termo1->base);
-            termo1 = termo1->proximo;
+            criarPolinomio(resultado, poli1->base, poli1->exp);
+            poli1 = poli1->proximo;
         }
-        else if (termo2->exp > termo1->exp)
+        else if (poli2->exp < poli1->exp)
         {
-            criarPolinomio(resultado, termo2->base, termo2->base);
-            termo2 = termo2->proximo;
+            criarPolinomio(resultado, poli2->base, poli2->exp);
+            poli2 = poli2->proximo;
         }
         else
         {
-            int somaBase = termo1->base + termo2->base;
+            int somaBase = poli1->base + poli2->base;
             if (somaBase != 0)
             {
-                criarPolinomio(resultado, somaBase, termo1->exp);
+                criarPolinomio(resultado, somaBase, poli1->exp);
             }
-            termo1 = termo1->proximo;
-            termo2 = termo2->proximo;
+            poli1 = poli1->proximo;
+            poli2 = poli2->proximo;
         }
     }
 
-    while (termo1 != NULL)
+    while (poli1 != NULL)
     {
-        criarPolinomio(resultado, termo1->base, termo1->exp);
-        termo1 = termo1->proximo;
+        criarPolinomio(resultado, poli1->base, poli1->exp);
+        poli1 = poli1->proximo;
     }
 
-    while (termo2 != NULL)
+    while (poli2 != NULL)
     {
-        criarPolinomio(resultado, termo2->base, termo2->exp);
-        termo2 = termo2->proximo;
+        criarPolinomio(resultado, poli2->base, poli2->exp);
+        poli2 = poli2->proximo;
     }
 
     return resultado;

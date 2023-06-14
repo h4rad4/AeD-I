@@ -12,7 +12,7 @@ int main(int argc, char const *argv[])
 
     P1 = criarPolinomio(P1, 2, 3);
     P1 = criarPolinomio(P1, 2, 2);
-    P1 = criarPolinomio(P1, 2, 2);
+    P1 = criarPolinomio(P1, 2, 1);
 
     P2 = criarPolinomio(P2, 4, 3);
     P2 = criarPolinomio(P2, 4, 2);
