@@ -112,8 +112,42 @@ void removerMaiorParaMenor(Lista *p)
             }
             temp->proximo = maiorNo->proximo;
         }
-        
+
         free(maiorNo);
     }
 }
 
+void imprimeLista(Lista *p)
+{
+    Lista *q; // Variáve auxiliar para percorrer a lista
+
+    for (q = p; q != NULL; q->inicio->proximo)
+    {
+        printf("%d ", q->inicio->proximo->valor);
+    }
+}
+
+int estadoLista(Lista *p)
+{
+    return (p == NULL); // Se o resultado da comparação de 'p' com NULL for verdadeiro então retorna 1 (lista vazia), se não retorna 0
+}
+
+void buscaLista(Lista *p, int value)
+{
+    Lista *l;
+    for (l = p; l != NULL; l = l->inicio->proximo)
+    {
+        if (l->inicio->proximo->valor == value)
+            return l; // Retorna o ponteiro do nó onde o elemento foi encontrado
+    }
+
+    return NULL; // Não achou o elemento
+}
+
+Lista *removeLista(Lista *p)
+{
+    Lista *q = p;
+    Lista *anterior = NULL;
+
+
+}
