@@ -1,3 +1,4 @@
+#include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -7,17 +8,17 @@ typedef struct
 {
     int valor;
     int proximo;
-} ElementoListaLigadaEstaticaInteiros;
+} Node;
 
 typedef struct
 {
-    ElementoListaLigadaEstaticaInteiros elementos[MAX_ELEMENTOS];
+    Node elementos[MAX_ELEMENTOS];
     int primeiro;
     int livre;
     int tamanho;
-} ListaLigadaEstaticaInteiros;
+} Lista;
 
-void criarLista(ListaLigadaEstaticaInteiros *lista)
+void criarLista(Lista *lista)
 {
     lista->primeiro = -1;
     lista->livre = 0;
@@ -31,7 +32,7 @@ void criarLista(ListaLigadaEstaticaInteiros *lista)
     lista->elementos[MAX_ELEMENTOS - 1].proximo = -1;
 }
 
-void inserirElemento(ListaLigadaEstaticaInteiros *lista, int valor)
+void inserirElemento(Lista *lista, int valor)
 {
     if (lista->livre != -1)
     {
@@ -75,12 +76,12 @@ void inserirElemento(ListaLigadaEstaticaInteiros *lista, int valor)
     }
 }
 
-int obterQuantidadeElementos(ListaLigadaEstaticaInteiros *lista)
+int obterQuantidadeElementos(Lista *lista)
 {
     return lista->tamanho;
 }
 
-int buscarElemento(ListaLigadaEstaticaInteiros *lista, int valor)
+int buscarElemento(Lista *lista, int valor)
 {
     int posicaoAtual = lista->primeiro;
 
@@ -96,7 +97,7 @@ int buscarElemento(ListaLigadaEstaticaInteiros *lista, int valor)
     return -1;
 }
 
-int buscaBinariaRecursiva(ListaLigadaEstaticaInteiros *lista, int valor, int inicio, int fim)
+int buscaBinariaRecursiva(Lista *lista, int valor, int inicio, int fim)
 {
     if (inicio > fim)
     {
@@ -125,7 +126,7 @@ int buscaBinariaRecursiva(ListaLigadaEstaticaInteiros *lista, int valor, int ini
     }
 }
 
-void excluirElemento(ListaLigadaEstaticaInteiros *lista, int valor)
+void excluirElemento(Lista *lista, int valor)
 {
     int posicaoAtual = lista->primeiro;
     int posicaoAnterior = -1;
@@ -159,7 +160,7 @@ void excluirElemento(ListaLigadaEstaticaInteiros *lista, int valor)
     }
 }
 
-void imprimirLista(ListaLigadaEstaticaInteiros *lista)
+void imprimirLista(Lista *lista)
 {
     printf("Lista: ");
     int posicaoAtual = lista->primeiro;
@@ -175,7 +176,7 @@ void imprimirLista(ListaLigadaEstaticaInteiros *lista)
 
 int main()
 {
-    ListaLigadaEstaticaInteiros lista;
+    Lista lista;
     criarLista(&lista);
 
     inserirElemento(&lista, 5);
@@ -199,6 +200,10 @@ int main()
     imprimirLista(&lista);
 
     printf("Quantidade de elementos: %d\n", obterQuantidadeElementos(&lista));
+
+    time_t now;
+    time(&now);
+    printf("Data e hora de entrega %s", ctime(&now));
 
     return 0;
 }

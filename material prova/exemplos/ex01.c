@@ -1,77 +1,277 @@
-/*
-Em uma Lista ligada Estática de alunos (cada aluno tem código, nome, idade e número de filhos) com os alunos
-No	código	nome	idade	número de filhos
-1	001	    Daniel	21	0
-2	002	    Suza	19	0
-3	003	    Danilo	24	1
-4	004	    Camila	18	0
-5	005	    Carlos	22	1
-
-inseridos em essa ordem.
-a)	Criar e testar uma operação no TDA para retornar o aluno com maior idade.
-b)	Imprimir todos os dados do aluno com maior idade.
-(pode utilizar os TDAs e as operações definidas nos exercícios durante todo o período)
-*/
-
 #include <stdio.h>
 #include <stdlib.h>
-
-#define MAX_ELEMENTOS 100
-
+#include <stdbool.h>
+#define MAX 10
 typedef struct
 {
-    int codigo;
-    char nome[50];
-    int idade;
-    int numFilhos;
+
+    int valor;
     int proximo;
-} Aluno;
+
+} ELEMENTO;
 
 typedef struct
 {
-    Aluno elementos[MAX_ELEMENTOS];
-    int *primeiro;
-    int *proximo;
-    int tamanho;
-} Lista;
+    ELEMENTO lista[MAX];
+    int inicio;
+    int n;
 
-void criarLista(Lista *lista)
+} LISTA_INTEIROS;
+
+LISTA_INTEIROS *inicializarlista()
 {
-    lista->primeiro = NULL;
-    lista->proximo = &lista->elementos[0].proximo;
-    lista->tamanho = 0;
-
-    for (int i = 0; i < MAX_ELEMENTOS - 1; i++)
+    int i;
+    LISTA_INTEIROS *m = malloc(sizeof(LISTA_INTEIROS));
+    for (i = 0; i < MAX - 1; i++)
     {
-        lista->elementos[i].proximo = i + 1;
+        m->lista[i].proximo = i + 1;
+    }
+    m->lista[MAX - 1].proximo = -1;
+    m->inicio = -1;
+    m->n = 0;
+
+    return m;
+}
+
+int tamanholista(LISTA_INTEIROS *m)
+{
+    int tam = 0;
+    int i = m->inicio;
+    while (i != -1)
+    {
+        tam++;
+        i = m->lista[i].proximo;
+    }
+    return tam;
+}
+
+int ListaCheia(LISTA_INTEIROS *lista)
+{
+
+    if (lista == NULL || lista->n == MAX)
+        return -1;
+}
+
+int ListaVazia(LISTA_INTEIROS *lista)
+{
+
+    if (lista == NULL || lista->n == 0)
+        return -1;
+}
+
+int InserirElemento(LISTA_INTEIROS *lista, int x)
+{
+
+    if (ListaCheia(lista) == -1)
+        return -1;
+
+    if (lista->n == 0)
+    {
+        lista->lista[0].valor = x;
+        lista->lista[0].proximo = -1;
+        lista->inicio = 0;
+        lista->n++;
+    }
+    else if (lista->n > 0)
+    {
+        lista->lista[lista->n].valor = x;
+        lista->lista[lista->n].proximo = lista->lista[lista->n - 1].proximo;
+        lista->lista[lista->n - 1].proximo = lista->n;
+        lista->n++;
+    }
+}
+
+int inserirOrdenado(LISTA_INTEIROS *lista, int x)
+{
+    int i = lista->inicio;
+    int pos = -1;
+    if (ListaCheia(lista) == -1)
+        return -1;
+
+    if (lista->n == 0)
+    {
+        lista->lista[0].valor = x;
+        lista->lista[0].proximo = -1;
+        lista->inicio = 0;
+        lista->n++;
+    }
+    else
+    {
+        while (i != -1)
+        {
+            if (x > lista->lista[i].valor)
+            {
+                pos = i;
+            }
+            else if (x == lista->lista[i].valor)
+            {
+                return -1;
+            }
+            i = lista->lista[i].proximo;
+        }
+
+        lista->lista[lista->n].valor = x;
+
+        if (pos == -1)
+        {
+            lista->lista[lista->n].proximo = lista->inicio;
+            lista->inicio = lista->n;
+            lista->n++;
+        }
+        else
+        {
+            lista->lista[lista->n].proximo = lista->lista[pos].proximo;
+            lista->lista[pos].proximo = lista->n;
+            lista->n++;
+        }
+    }
+}
+
+int InserirElemento_pos(LISTA_INTEIROS *lista, int pos, int novo_valor)
+{
+    int i = lista->inicio;
+    int pos_ant = -1;
+
+    if (ListaCheia(lista) == -1 || pos < 0 || pos > MAX)
+        return -1;
+
+    if (lista->n == 0)
+    {
+        lista->lista[pos].valor = novo_valor;
+        lista->lista[pos].proximo = -1;
+        lista->inicio = pos;
+        lista->n++;
     }
 
-    lista->elementos[MAX_ELEMENTOS - 1].proximo = NULL;
+    else
+    {
+        while (i != -1)
+        {
+            if (novo_valor > lista->lista[i].valor)
+            {
+                pos_ant = i;
+            }
+            else if (novo_valor == lista->lista[i].valor)
+            {
+                return -1;
+            }
+            i = lista->lista[i].proximo;
+        }
+
+        lista->lista[pos].valor = novo_valor;
+        if (pos_ant == -1)
+        {
+            lista->lista[pos].proximo = lista->inicio;
+            lista->inicio = pos;
+            lista->n++;
+        }
+        else
+        {
+            lista->lista[pos].proximo = lista->lista[pos_ant].proximo;
+            lista->lista[pos_ant].proximo = pos;
+            lista->n++;
+        }
+    }
 }
 
-Lista *inserirAluno(Lista *lista, Aluno aluno)
+int excluirElemento(LISTA_INTEIROS *lista, int pos)
 {
-    
+    int i = lista->inicio;
+    int anterior = -1;
+    if (ListaVazia(lista) == -1 || pos < 0 || pos > MAX)
+        return -1;
+    if (lista->n == 1)
+    {
+        lista->lista[pos].valor = NULL;
+        lista->lista[pos].proximo = NULL;
+        lista->n--;
+    }
+    else
+    {
+        while (i != -1)
+        {
+            if (lista->lista[pos].valor > lista->lista[i].valor)
+            {
+                anterior = i;
+            }
+            i = lista->lista[i].proximo;
+        }
+        if (anterior == -1)
+        {
+            lista->inicio = lista->lista[pos].proximo;
+            lista->lista[pos].valor = NULL;
+            lista->lista[pos].proximo = NULL;
+            lista->n--;
+        }
+        else
+        {
+            lista->lista[anterior].proximo = lista->lista[pos].proximo;
+            lista->lista[pos].valor = NULL;
+            lista->lista[pos].proximo = NULL;
+            lista->n--;
+        }
+    }
 }
 
-int main(int argc, char const *argv[])
+int buscaSeq(LISTA_INTEIROS *lista, int x)
 {
-    Lista lista;
+    int i = lista->inicio;
+    if (ListaVazia(lista) == -1)
+        return -1;
 
-    Aluno Al1 = {1, 001, "Daniel", 21, 0};
-    Aluno Al2 = {2, 002, "Suza", 19, 0};
-    Aluno Al3 = {3, 003, "Danilo", 24, 1};
-    Aluno Al4 = {4, 004, "Camila", 18, 0};
-    Aluno Al5 = {5, 005, "Carlos", 22, 1};
+    while (i != -1)
+    {
+        if (x == lista->lista[i].valor)
+        {
+            return i;
+        }
+        i = lista->lista[i].proximo;
+    }
+}
 
-    inserirAluno(&lista, Al1);
-    inserirAluno(&lista, Al2);
-    inserirAluno(&lista, Al3);
-    inserirAluno(&lista, Al4);
-    inserirAluno(&lista, Al5);
+void ImprimirElemento(LISTA_INTEIROS *lista)
+{
+    int i = lista->inicio;
+    while (i != -1)
+    {
+        printf(" \n Valor: %d", lista->lista[i].valor, lista->lista[i].proximo);
+        i = lista->lista[i].proximo;
+    }
+}
 
-    printf("Aluno mais velho: ");
-    retornarAluno(&lista);
+int buscaMaior_Excluir(LISTA_INTEIROS *lista)
+{
+    int i = lista->inicio;
+    int posmaior;
+    if (ListaVazia(lista) == -1)
+        return -1;
 
-    return 0;
+    int maior = lista->lista[i].valor;
+    while (i != -1)
+    {
+
+        if (lista->lista[i].valor > maior)
+        {
+            maior = lista->lista[i].valor;
+            posmaior = i;
+        }
+        i = lista->lista[i].proximo;
+    }
+    printf(" \n Maior elemento: %d", maior);
+
+    lista->lista[posmaior - 1].proximo = lista->lista[posmaior].proximo;
+}
+
+int main()
+{
+    LISTA_INTEIROS *inteiros;
+    inteiros = inicializarlista();
+    InserirElemento(inteiros, 15);
+    InserirElemento(inteiros, 28);
+    InserirElemento(inteiros, 9);
+    InserirElemento(inteiros, 31);
+    InserirElemento(inteiros, 2);
+    ImprimirElemento(inteiros);
+    buscaMaior_Excluir(inteiros);
+    ImprimirElemento(inteiros);
 }
