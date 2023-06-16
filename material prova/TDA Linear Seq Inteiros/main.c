@@ -6,6 +6,7 @@ typedef struct
     int *elementos;
     int tamanho;
     int capacidade;
+
 } Lista;
 
 void criarLista(Lista *lista, int capacidade)
@@ -33,6 +34,7 @@ void inserirElementoOrdenado(Lista *lista, int elemento)
     if (lista->tamanho < lista->capacidade)
     {
         int indice = lista->tamanho - 1;
+
         while (indice >= 0 && lista->elementos[indice] > elemento)
         {
             lista->elementos[indice + 1] = lista->elementos[indice];
@@ -49,7 +51,7 @@ void inserirElementoOrdenado(Lista *lista, int elemento)
     // 10, 20, 30, 40 (inserir 25):
     // 10, 20, 30, 40, 40
     // 10, 20, 30, 30, 40
-    // 10, 20, 25, 30, 40 
+    // 10, 20, 25, 30, 40
 }
 
 int obterQuantidadeElementos(Lista *lista)
@@ -93,6 +95,29 @@ int buscarElementoBinario(Lista *lista, int elemento)
     }
 
     return -1;
+}
+
+int buscarElementoBinarioRecursivo(Lista *lista, int elemento, int inicio, int fim)
+{
+
+    int meio = (inicio + fim) / 2;
+
+    if (fim < inicio)
+    {
+        return -1;
+    }
+    else if (lista->elementos[meio] == elemento)
+    {
+        return meio;
+    }
+    else if (lista->elementos[meio] < elemento)
+    {
+        buscarElementoBinarioRecursivo(lista, elemento, meio + 1, fim);
+    }
+    else
+    {
+        buscarElementoBinarioRecursivo(lista, elemento, inicio, meio - 1);
+    }
 }
 
 void excluirElementoPorPosicao(Lista *lista, int posicao)
@@ -147,18 +172,20 @@ int main()
 
     imprimirLista(&lista);
 
-    int posicao = buscarElementoSequencial(&lista, 10);
+    int posicao = buscarElementoBinarioRecursivo(&lista, 12, 0, 5);
+    // int posicao = buscarElementoSequencial(&lista, 10);
     if (posicao != -1)
     {
-        printf("Elemento 10 encontrado na posição %d\n", posicao);
+        printf("Elemento encontrado na posicao %d\n", posicao);
     }
     else
     {
-        printf("Elemento 10 não encontrado na lista\n");
+        printf("Elemento nao encontrado na lista\n");
     }
 
     excluirElementoPorValor(&lista, 10);
 
+    printf("[Apos exclusao] ");
     imprimirLista(&lista);
 
     printf("Quantidade de elementos: %d\n", obterQuantidadeElementos(&lista));
