@@ -37,37 +37,39 @@ void criarLista(Lista *lista)
 
 void inserirElemento(Lista *lista, Aluno aluno)
 {
+    // Verifica se há espaço disponível
     if (lista->proximo != NULL)
     {
-        int *posicaoInserir = lista->proximo;
-        lista->proximo = &lista->elementos[*posicaoInserir].proximo;
-        lista->elementos[*posicaoInserir] = aluno;
+        // Insere o aluno e faz apontar para o próximo
+        int *atual = lista->proximo;
+        lista->proximo = &lista->elementos[*atual].proximo;
+        lista->elementos[*atual] = aluno;
 
         if (lista->primeiro == NULL)
         {
-            lista->primeiro = posicaoInserir;
-            lista->elementos[*posicaoInserir].proximo = NULL;
+            lista->primeiro = atual;
+            lista->elementos[*atual].proximo = NULL;
         }
         else
         {
             int *posicaoAtual = lista->primeiro;
             int *posicaoAnterior = NULL;
 
-            while (posicaoAtual != NULL && strcmp(lista->elementos[*posicaoAtual].nome, aluno.nome) < 0)
+            while (posicaoAtual != NULL && strcmp(lista->elementos[*posicaoAtual].nome, aluno.nome) < 0) // Ordena alfabeticamente
             {
                 posicaoAnterior = posicaoAtual;
                 posicaoAtual = &lista->elementos[*posicaoAtual].proximo;
             }
 
-            if (posicaoAnterior == NULL)
+            if (posicaoAnterior == NULL) // Significa que será inserido no início da lista
             {
-                lista->elementos[*posicaoInserir].proximo = lista->primeiro;
-                lista->primeiro = posicaoInserir;
+                lista->elementos[*atual].proximo = lista->primeiro;
+                lista->primeiro = atual;
             }
             else
             {
-                lista->elementos[*posicaoInserir].proximo = lista->elementos[*posicaoAnterior].proximo;
-                lista->elementos[*posicaoAnterior].proximo = posicaoInserir;
+                lista->elementos[*atual].proximo = lista->elementos[*posicaoAnterior].proximo;
+                lista->elementos[*posicaoAnterior].proximo = atual;
             }
         }
 
