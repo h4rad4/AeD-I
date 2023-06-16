@@ -2,113 +2,139 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct {
+typedef struct
+{
     int codigo;
     char nome[50];
     int idade;
     int numFilhos;
 } Aluno;
 
-typedef struct Node {
+typedef struct Node
+{
     Aluno aluno;
-    struct Node* proximo;
+    struct Node *proximo;
 } Node;
 
-typedef struct {
-    Node* primeiro;
+typedef struct
+{
+    Node *primeiro;
     int tamanho;
 } Lista;
 
-void criarLista(Lista* lista) {
+void criarLista(Lista *lista)
+{
     lista->primeiro = NULL;
     lista->tamanho = 0;
 }
 
-void inserirElemento(Lista* lista, Aluno aluno) {
-    Node* novoElemento = (Node*)malloc(sizeof(Node));
+void inserirElemento(Lista *lista, Aluno aluno)
+{
+    Node *novoElemento = (Node *)malloc(sizeof(Node));
     novoElemento->aluno = aluno;
     novoElemento->proximo = NULL;
 
-    if (lista->primeiro == NULL) {
+    if (lista->primeiro == NULL)
+    {
         lista->primeiro = novoElemento;
-    } else {
-        Node* ultimoElemento = lista->primeiro;
+    }
+    else
+    {
+        Node *atual = lista->primeiro;
 
-        while (ultimoElemento->proximo != NULL) {
-            ultimoElemento = ultimoElemento->proximo;
+        while (atual->proximo != NULL)
+        {
+            atual = atual->proximo;
         }
 
-        ultimoElemento->proximo = novoElemento;
+        atual->proximo = novoElemento;
     }
 
     lista->tamanho++;
 }
 
-int obterQuantidadeElementos(Lista* lista) {
+int obterQuantidadeElementos(Lista *lista)
+{
     return lista->tamanho;
 }
 
-int buscarElemento(Lista* lista, int codigo) {
-    Node* elementoAtual = lista->primeiro;
+int buscarElemento(Lista *lista, int codigo)
+{
+    Node *atual = lista->primeiro;
     int posicaoAtual = 0;
 
-    while (elementoAtual != NULL) {
-        if (elementoAtual->aluno.codigo == codigo) {
+    while (atual != NULL)
+    {
+        if (atual->aluno.codigo == codigo)
+        {
             return posicaoAtual;
         }
 
-        elementoAtual = elementoAtual->proximo;
+        atual = atual->proximo;
         posicaoAtual++;
     }
 
     return -1;
 }
 
-void excluirElemento(Lista* lista, int codigo) {
-    if (lista->primeiro == NULL) {
-        printf("Lista está vazia. Não é possível excluir o elemento.\n");
+void excluirElemento(Lista *lista, int codigo)
+{
+    if (lista->primeiro == NULL)
+    {
+        printf("Lista esta vazia. Não e possivel excluir o elemento.\n");
         return;
     }
 
-    Node* elementoAtual = lista->primeiro;
-    Node* elementoAnterior = NULL;
+    Node *atual = lista->primeiro;
+    Node *elementoAnterior = NULL;
 
-    while (elementoAtual != NULL && elementoAtual->aluno.codigo != codigo) {
-        elementoAnterior = elementoAtual;
-        elementoAtual = elementoAtual->proximo;
+    while (atual != NULL && atual->aluno.codigo != codigo)
+    {
+        elementoAnterior = atual;
+        atual = atual->proximo;
     }
 
-    if (elementoAtual != NULL) {
-        if (elementoAnterior == NULL) {
-            lista->primeiro = elementoAtual->proximo;
-        } else {
-            elementoAnterior->proximo = elementoAtual->proximo;
+    if (atual != NULL)
+    {
+        if (elementoAnterior == NULL)
+        {
+            lista->primeiro = atual->proximo;
+        }
+        else
+        {
+            elementoAnterior->proximo = atual->proximo;
         }
 
-        free(elementoAtual);
+        free(atual);
         lista->tamanho--;
 
-        printf("Aluno com código %d excluído da lista.\n", codigo);
-    } else {
+        printf("Aluno com codigo %d excluido da lista.\n", codigo);
+    }
+    else
+    {
         printf("Aluno não encontrado.\n");
     }
 }
 
-void imprimirLista(Lista* lista) {
+void imprimirLista(Lista *lista)
+{
     printf("Lista de Alunos:\n");
-    Node* elementoAtual = lista->primeiro;
+    Node *atual = lista->primeiro;
 
-    while (elementoAtual != NULL) {
-        Aluno aluno = elementoAtual->aluno;
+    while (atual != NULL)
+    {
+        Aluno aluno = atual->aluno;
         printf("Código: %d, Nome: %s, Idade: %d, Número de Filhos: %d\n",
                aluno.codigo, aluno.nome, aluno.idade, aluno.numFilhos);
-        elementoAtual = elementoAtual->proximo;
+               
+        atual = atual->proximo;
     }
 
     printf("\n");
 }
 
-int main() {
+int main()
+{
     Lista lista;
     criarLista(&lista);
 
@@ -121,9 +147,12 @@ int main() {
     imprimirLista(&lista);
 
     int posicao = buscarElemento(&lista, 2);
-    if (posicao != -1) {
+    if (posicao != -1)
+    {
         printf("Aluno com código 2 encontrado na posição %d\n", posicao);
-    } else {
+    }
+    else
+    {
         printf("Aluno com código 2 não encontrado na lista\n");
     }
 

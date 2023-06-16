@@ -1,57 +1,76 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct Node {
-    int data;
-    struct Node* next;
+typedef struct Node
+{
+    int valor;
+    struct Node *next;
+
 } Node;
 
-typedef struct {
-    Node* cabeca;
+typedef struct
+{
+    Node *inicio;
     int tamanho;
+
 } Lista;
 
-void inicializarLista(Lista* lista) {
-    lista->cabeca = NULL;
+void inicializarLista(Lista *lista)
+{
+    lista->inicio = NULL;
     lista->tamanho = 0;
 }
 
-void inserirElemento(Lista* lista, int elemento) {
-    Node* novoNo = (Node*)malloc(sizeof(Node));
-    novoNo->data = elemento;
+void inserirElemento(Lista *lista, int elemento)
+{
+    Node *novoNo = (Node *)malloc(sizeof(Node));
+    novoNo->valor = elemento;
     novoNo->next = NULL;
 
-    if (lista->cabeca == NULL) {
-        lista->cabeca = novoNo;
-    } else {
-        Node* atual = lista->cabeca;
-        while (atual->next != NULL) {
+    if (lista->inicio == NULL)
+    {
+        lista->inicio = novoNo;
+    }
+    else
+    {
+        Node *atual = lista->inicio;
+        while (atual->next != NULL)
+        {
             atual = atual->next;
         }
+
         atual->next = novoNo;
     }
 
     lista->tamanho++;
 }
 
-void removerElemento(Lista* lista, int elemento) {
-    if (lista->cabeca == NULL) {
+void removerElemento(Lista *lista, int elemento)
+{
+    if (lista->inicio == NULL)
+    {
         return;
     }
 
-    Node* anterior = NULL;
-    Node* atual = lista->cabeca;
+    Node *anterior = NULL;
+    Node *atual = lista->inicio;
 
-    while (atual != NULL) {
-        if (atual->data == elemento) {
-            if (anterior == NULL) {
-                lista->cabeca = atual->next;
-            } else {
+    while (atual != NULL)
+    {
+        if (atual->valor == elemento)
+        {
+            if (anterior == NULL)
+            {
+                lista->inicio = atual->next;
+            }
+            else
+            {
                 anterior->next = atual->next;
             }
 
             free(atual);
             lista->tamanho--;
+            
             return;
         }
 
@@ -60,12 +79,15 @@ void removerElemento(Lista* lista, int elemento) {
     }
 }
 
-int buscarElemento(Lista* lista, int elemento) {
-    Node* atual = lista->cabeca;
+int buscarElemento(Lista *lista, int elemento)
+{
+    Node *atual = lista->inicio;
     int posicao = 0;
 
-    while (atual != NULL) {
-        if (atual->data == elemento) {
+    while (atual != NULL)
+    {
+        if (atual->valor == elemento)
+        {
             return posicao;
         }
 
@@ -76,7 +98,8 @@ int buscarElemento(Lista* lista, int elemento) {
     return -1;
 }
 
-int main() {
+int main()
+{
     Lista lista;
     inicializarLista(&lista);
 
@@ -85,27 +108,32 @@ int main() {
     inserirElemento(&lista, 15);
 
     printf("Lista: ");
-    Node* atual = lista.cabeca;
-    while (atual != NULL) {
-        printf("%d ", atual->data);
+    Node *atual = lista.inicio;
+    while (atual != NULL)
+    {
+        printf("%d ", atual->valor);
         atual = atual->next;
     }
     printf("\n");
 
     removerElemento(&lista, 10);
 
-    printf("Lista após a remoção: ");
-    atual = lista.cabeca;
-    while (atual != NULL) {
-        printf("%d ", atual->data);
+    printf("Lista apos a remocao: ");
+    atual = lista.inicio;
+    while (atual != NULL)
+    {
+        printf("%d ", atual->valor);
         atual = atual->next;
     }
     printf("\n");
 
     int posicao = buscarElemento(&lista, 5);
-    if (posicao != -1) {
-        printf("Elemento 5 encontrado na posição %d\n", posicao);
-    } else {
+    if (posicao != -1)
+    {
+        printf("Elemento 5 encontrado na posicao %d\n", posicao);
+    }
+    else
+    {
         printf("Elemento 5 não encontrado na lista\n");
     }
 
