@@ -126,7 +126,7 @@ void imprimirLista(Lista *lista)
         Aluno aluno = atual->aluno;
         printf("Código: %d, Nome: %s, Idade: %d, Número de Filhos: %d\n",
                aluno.codigo, aluno.nome, aluno.idade, aluno.numFilhos);
-               
+
         atual = atual->proximo;
     }
 
