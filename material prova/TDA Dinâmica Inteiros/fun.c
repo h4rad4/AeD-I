@@ -1,212 +1,87 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "main.h"
 
-void inicializarLista(Lista *lista)
-{
-    lista->inicio = NULL;
+void criarLista(Lista* lista) {
+    lista->primeiro = NULL;
     lista->tamanho = 0;
 }
 
-void inserirElemento(Lista *lista, int elemento)
-{
-    Node *novoNo = (Node *)malloc(sizeof(Node));
-    novoNo->valor = elemento;
-    novoNo->next = NULL;
+void inserirElemento(Lista* lista, int valor) {
+    Node* novoElemento = (Node*)malloc(sizeof(Node));
+    novoElemento->valor = valor;
+    novoElemento->proximo = NULL;
 
-    if (lista->inicio == NULL)
-    {
-        lista->inicio = novoNo;
-    }
-    else
-    {
-        Node *atual = lista->inicio;
-        while (atual->next != NULL)
-        {
-            atual = atual->next;
+    if (lista->primeiro == NULL) {
+        lista->primeiro = novoElemento;
+    } else {
+        Node* ultimoElemento = lista->primeiro;
+
+        while (ultimoElemento->proximo != NULL) {
+            ultimoElemento = ultimoElemento->proximo;
         }
 
-        atual->next = novoNo;
+        ultimoElemento->proximo = novoElemento;
     }
 
     lista->tamanho++;
 }
 
-void removerElemento(Lista *lista, int elemento)
-{
-    if (lista->inicio == NULL)
-    {
-        return;
-    }
-
-    Node *anterior = NULL;
-    Node *atual = lista->inicio;
-
-    while (atual != NULL)
-    {
-        if (atual->valor == elemento)
-        {
-            if (anterior == NULL)
-            {
-                lista->inicio = atual->next;
-            }
-            else
-            {
-                anterior->next = atual->next;
-            }
-
-            free(atual);
-            lista->tamanho--;
-
-            return;
-        }
-
-        anterior = atual;
-        atual = atual->next;
-    }
-}
-
-int buscarElemento(Lista *lista, int elemento)
-{
-    Node *atual = lista->inicio;
-    int posicao = 0;
-
-    while (atual != NULL)
-    {
-        if (atual->valor == elemento)
-        {
-            return posicao;
-        }
-
-        atual = atual->next;
-        posicao++;
-    }
-
-    return -1;
-}
-
-int buscaBinaria(Lista *lista, int elemento)
-{
-    int esquerda = 0;
-    int direita = lista->tamanho - 1;
-
-    while (esquerda <= direita)
-    {
-        int meio = (esquerda + direita) / 2;
-
-        Node *atual = lista->inicio;
-        for (int i = 0; i < meio; i++)
-        {
-            atual = atual->next;
-        }
-
-        if (atual->valor == elemento)
-        {
-            return meio;
-        }
-        else if (atual->valor < elemento)
-        {
-            esquerda = meio + 1;
-        }
-        else
-        {
-            direita = meio - 1;
-        }
-    }
-
-    return -1;
-}
-
-int buscaBinariaRecursiva(Node *inicio, int elemento, int esquerda, int direita)
-{
-    if (esquerda > direita)
-    {
-        return -1;
-    }
-
-    int meio = (esquerda + direita) / 2;
-
-    Node *atual = inicio;
-    for (int i = 0; i < meio; i++)
-    {
-        atual = atual->next;
-    }
-
-    if (atual->valor == elemento)
-    {
-        return meio;
-    }
-    else if (atual->valor < elemento)
-    {
-        return buscaBinariaRecursiva(inicio, elemento, meio + 1, direita);
-    }
-    else
-    {
-        return buscaBinariaRecursiva(inicio, elemento, esquerda, meio - 1);
-    }
-}
-
-void inserirElementoOrdenado(Lista *lista, int elemento)
-{
-    Node *novoNo = (Node *)malloc(sizeof(Node));
-    novoNo->valor = elemento;
-    novoNo->next = NULL;
-
-    if (lista->inicio == NULL)
-    {
-        // Caso a lista esteja vazia, o novo nó se torna o primeiro nó da lista
-        lista->inicio = novoNo;
-        lista->tamanho++;
-        return;
-    }
-
-    if (elemento < lista->inicio->valor)
-    {
-        // Caso o elemento seja menor que o valor do primeiro nó, o novo nó se torna o novo primeiro nó da lista
-        novoNo->next = lista->inicio;
-        lista->inicio = novoNo;
-        lista->tamanho++;
-        return;
-    }
-
-    Node *anterior = lista->inicio;
-    Node *atual = lista->inicio->next;
-
-    while (atual != NULL)
-    {
-        if (elemento < atual->valor)
-        {
-            // O novo nó deve ser inserido entre o nó anterior e o nó atual
-            anterior->next = novoNo;
-            novoNo->next = atual;
-            lista->tamanho++;
-            return;
-        }
-
-        anterior = atual;
-        atual = atual->next;
-    }
-
-    // Caso o elemento seja maior que todos os valores na lista, ele é inserido no final da lista
-    anterior->next = novoNo;
-    lista->tamanho++;
-}
-
-int obterQuantidadeElementos(Lista *lista)
-{
+int obterQuantidadeElementos(Lista* lista) {
     return lista->tamanho;
 }
 
-void imprimirLista(Lista *lista)
-{
-    Node *atual = lista->inicio;
+int buscarElemento(Lista* lista, int valor) {
+    Node* elementoAtual = lista->primeiro;
+    int posicaoAtual = 0;
 
-    printf("Elementos da lista:");
+    while (elementoAtual != NULL) {
+        if (elementoAtual->valor == valor) {
+            return posicaoAtual;
+        }
 
-    while (atual != NULL)
-    {
-        printf(" %d", atual->valor);
-        atual = atual->next;
+        elementoAtual = elementoAtual->proximo;
+        posicaoAtual++;
+    }
+
+    return -1;
+}
+
+void excluirElemento(Lista* lista, int valor) {
+    if (lista->primeiro == NULL) {
+        printf("Lista está vazia. Não é possível excluir o elemento.\n");
+        return;
+    }
+
+    Node* elementoAtual = lista->primeiro;
+    Node* elementoAnterior = NULL;
+
+    while (elementoAtual != NULL && elementoAtual->valor != valor) {
+        elementoAnterior = elementoAtual;
+        elementoAtual = elementoAtual->proximo;
+    }
+
+    if (elementoAtual != NULL) {
+        if (elementoAnterior == NULL) {
+            lista->primeiro = elementoAtual->proximo;
+        } else {
+            elementoAnterior->proximo = elementoAtual->proximo;
+        }
+
+        free(elementoAtual);
+        lista->tamanho--;
+
+        printf("Elemento %d excluído da lista.\n", valor);
+    } else {
+        printf("Elemento não encontrado.\n");
+    }
+}
+
+void imprimirLista(Lista* lista) {
+    printf("Lista: ");
+    Node* elementoAtual = lista->primeiro;
+
+    while (elementoAtual != NULL) {
+        printf("%d ", elementoAtual->valor);
+        elementoAtual = elementoAtual->proximo;
     }
 
     printf("\n");

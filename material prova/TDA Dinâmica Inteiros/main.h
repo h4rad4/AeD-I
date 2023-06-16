@@ -1,28 +1,24 @@
-#ifndef main_h
-#define main_h
+#ifndef MAIN_H
+#define MAIN_H
 
-typedef struct Node
-{
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Node {
     int valor;
-    struct Node *next;
-
+    struct Node* proximo;
 } Node;
 
-typedef struct
-{
-    Node *inicio;
+typedef struct {
+    Node* primeiro;
     int tamanho;
-
 } Lista;
 
-void inicializarLista(Lista *lista);
-void inserirElemento(Lista *lista, int elemento);
-void removerElemento(Lista *lista, int elemento);
-int buscarElemento(Lista *lista, int elemento);
-int buscaBinaria(Lista *lista, int elemento);
-int buscaBinariaRecursiva(Node *inicio, int elemento, int esquerda, int direita);
-void inserirElementoOrdenado(Lista *lista, int elemento);
-int obterQuantidadeElementos(Lista *lista);
-void imprimirLista(Lista *lista);
+void criarLista(Lista* lista);
+void inserirElemento(Lista* lista, int valor);
+int obterQuantidadeElementos(Lista* lista);
+int buscarElemento(Lista* lista, int valor);
+void excluirElemento(Lista* lista, int valor);
+void imprimirLista(Lista* lista);
 
 #endif
