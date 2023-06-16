@@ -148,6 +148,4 @@ Lista *removeLista(Lista *p)
 {
     Lista *q = p;
     Lista *anterior = NULL;
-
-
 }
