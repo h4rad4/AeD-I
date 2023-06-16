@@ -96,6 +96,35 @@ int buscarElemento(ListaLigadaEstaticaInteiros *lista, int valor)
     return -1;
 }
 
+int buscaBinariaRecursiva(ListaLigadaEstaticaInteiros *lista, int valor, int inicio, int fim)
+{
+    if (inicio > fim)
+    {
+        return -1; // Elemento não encontrado
+    }
+
+    int meio = (inicio + fim) / 2;
+    int posicaoAtual = lista->primeiro;
+
+    for (int i = 0; i < meio; i++)
+    {
+        posicaoAtual = lista->elementos[posicaoAtual].proximo;
+    }
+
+    if (lista->elementos[posicaoAtual].valor == valor)
+    {
+        return posicaoAtual; // Elemento encontrado
+    }
+    else if (lista->elementos[posicaoAtual].valor < valor)
+    {
+        return buscaBinariaRecursiva(lista, valor, meio + 1, fim); // Busca na metade superior
+    }
+    else
+    {
+        return buscaBinariaRecursiva(lista, valor, inicio, meio - 1); // Busca na metade inferior
+    }
+}
+
 void excluirElemento(ListaLigadaEstaticaInteiros *lista, int valor)
 {
     int posicaoAtual = lista->primeiro;
