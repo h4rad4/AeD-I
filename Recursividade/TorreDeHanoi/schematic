@@ -1,0 +1,54 @@
+MoveTorre(3, A , C , B):
+{
+    else
+    {
+        MoveTorre(2 , A , B , C):
+        {
+            else
+            {
+                MoveTorre(1 , A , C , B):
+                if
+                {
+                    MD(A , C)
+                    A -> C
+                }
+            
+                MoveDisco(A , B):
+                    A -> B;
+            
+                MoveTorre(1 , C , B , A):
+                if
+                {
+                    MD(C , B)
+                    C -> B
+                }
+            }
+        }
+
+        MoveDisco(A , C):
+            A -> C;
+
+        MoveTorre(2 , B , C , A):
+        {
+		else
+        {
+			MoveTorre(1 , B , A , C):
+				if
+                {
+					MD(B , A)
+					B -> A	
+                }
+			}
+
+			MoveDisco(B , C):
+			B -> C
+			
+			MoveTorre(1 , A , C , B):
+				if
+                {
+					MD(A , C)
+					A -> C
+		        }
+        }
+    }
+}
