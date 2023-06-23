@@ -12,11 +12,14 @@ typedef struct NODE
 
 } NODE;
 
-typedef struct Fila
+typedef struct FILA
 {
     NODE *inicio;
     NODE *fim;
-    int tamanho = 0;
+    int tamanho;
 
 } FILA;
 
+void inicializarFila(FILA *fila);
+int inserirAviao(FILA *fila, AVIAO novo_aviao);
+void imprimirAviao(FILA *fila);

@@ -2,19 +2,26 @@
 #include <stdlib.h>
 #include "main.h"
 
-FILA *inserirAviao(FILA *fila, AVIAO novo_aviao)
+void inicializarFila(FILA *fila)
+{
+    fila->inicio = NULL;
+    fila->fim = NULL;
+    fila->tamanho = 0;
+}
+
+int inserirAviao(FILA *fila, AVIAO novo_aviao)
 {
     NODE *Node = malloc(sizeof(NODE));
     Node->aviao = novo_aviao;
     Node->proximo = NULL;
 
-    if (Node == NULL)
+    if (Node = NULL)
     {
         printf("Nao foi possivel alocar memoria.");
-        return -1;
+        return 0;
     }
 
-    if (fila->inicio == NULL)
+    if (fila->inicio = NULL)
     {
         fila->inicio = Node;
         fila->tamanho++;
@@ -25,9 +32,24 @@ FILA *inserirAviao(FILA *fila, AVIAO novo_aviao)
         fila->inicio = Node;
         fila->tamanho++;
     }
+
+    return 1;
 }
 
 void imprimirAviao(FILA *fila)
 {
-    for (i = fila)
+    NODE node;
+
+    NODE *i = node.proximo;
+
+    if (fila->inicio == NULL)
+    {
+        printf("nao ha avioes em espera");
+    }
+
+    while (i->proximo != NULL)
+    {
+        printf("\nAviao '%s' \nCodigo: %d", i->aviao.nome, i->aviao.codigo);
+        i = i->proximo;
+    }
 }
