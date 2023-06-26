@@ -32,8 +32,8 @@ int main(int argc, char const *argv[])
 
     printf("Deseja liberar o aviao de qual posicao? ");
     scanf("%d", &pos);
-
     liberaAviao(&Hangar, Hangar.tamanho - (pos - 1));
+
     imprimirAviao(&Hangar);
 
     return 0;
