@@ -23,3 +23,5 @@ typedef struct HANGAR
 void imprimirAviao(HANGAR *hangar);
 int inserirAviao(HANGAR *hangar, AVIAO novo_aviao);
 void inicializarHangar(HANGAR *hangar);
+void liberaAviao(HANGAR *hangar, int pos);
+void pop(HANGAR *hangar);

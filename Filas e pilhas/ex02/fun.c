@@ -40,16 +40,50 @@ void imprimirAviao(HANGAR *hangar)
 
     while (i != NULL)
     {
-        printf("Aviao '%s': \nCodigo: %d\n", i->aviao.nome, i->aviao.codigo);
+        printf("Aviao: '%s' \nCodigo: %d\n", i->aviao.nome, i->aviao.codigo);
         printf("\n");
 
         i = i->proximo;
     }
 }
 
-void liberaAviao(HANGAR *hangar)
+void liberaAviao(HANGAR *hangar, int pos)
 {
-    NODE *i = hangar->inicio;
+    if (hangar->inicio == NULL)
+        printf("Nao ha avioes para liberar");
 
-    // INCOMPLETO
+    /* Percorrendo a pilha principal até a posição desejada, eliminando todos os elementos anteriores a essa posição */
+    HANGAR temp;
+    inicializarHangar(&temp);
+
+    for (int j = 0; j < pos; j++)
+    {
+        /* Salvando os elementos desnecessários em uma pilha temporária */
+        inserirAviao(&temp, hangar->inicio->aviao);
+
+        pop(hangar);
+    }
+
+    /* O elemento que se deseja remover acaba sendo salvo na pilha temporária, portanto deve-se fazer um 'pop' nele */
+    pop(&temp);
+
+    /* Recolocando os elementos da pilha temporária na pilha principal */
+
+    for (int k = 0; k < pos - 1; k++)
+    {
+        inserirAviao(hangar, temp.inicio->aviao);
+
+        pop(&temp);
+    }
+}
+
+void pop(HANGAR *hangar)
+{
+    free(hangar->inicio);
+    // printf("nome: %s \n codigo: %d\n", hangar->inicio->aviao.nome, hangar->inicio->aviao.codigo);
+
+    hangar->inicio = hangar->inicio->proximo;
+    hangar->tamanho--;
+
+    // printf("nome: %s \n codigo: %d\n", hangar->inicio->aviao.nome, hangar->inicio->aviao.codigo);
 }
