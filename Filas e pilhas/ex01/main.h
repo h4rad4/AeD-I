@@ -1,4 +1,4 @@
-typedef struct Aviao
+typedef struct AVIAO
 {
     char nome[20];
     int codigo;
@@ -23,3 +23,4 @@ typedef struct FILA
 void inicializarFila(FILA *fila);
 int inserirAviao(FILA *fila, AVIAO novo_aviao);
 void imprimirAviao(FILA *fila);
+void liberarAviao(FILA *fila);
