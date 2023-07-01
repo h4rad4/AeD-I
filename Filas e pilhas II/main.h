@@ -19,6 +19,8 @@ void adicionar_elemento(Expressao *expressao, const char *elemento);
 /* Função que avalia o resultado de uma expressão matemática */
 float resultado_expressao(const Expressao *expressao);
 
+
+
 /* Função que verifica se um caractere é um operador matemático */
 int isOperador(char c);
 
