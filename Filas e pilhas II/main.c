@@ -24,8 +24,9 @@ int main()
     converter_prefixa_para_posfixa(&expressao_prefixa, &expressao_posfixa);
     imprimir_expressao(&expressao_posfixa);
 
-    // apagar_expressao(&expressao);
-    // apagar_expressao(&expressao_prefixa);
+    apagar_expressao(&expressao);
+    apagar_expressao(&expressao_prefixa);
+    apagar_expressao(&expressao_posfixa);
 
     return 0;
 }
