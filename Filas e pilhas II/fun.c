@@ -68,7 +68,7 @@ void adicionar_elemento(Expressao *expressao, const char *elemento)
 void converter_posfixa_para_prefixa(const Expressao *expressao_posfixa, Expressao *expressao_prefixa)
 {
     char pilha[200][200];
-    int topo = -1;
+    int topo = -1; // A pilha está vazia, não há nenhum elemento adicionado ainda
 
     char *expressao_posfixa_temp = strdup(expressao_posfixa->expressao); // Cria uma cópia temporária da expressão posfixa
     char *termo = strtok(expressao_posfixa_temp, " ");                   // Divide a expressão em termos separados por espaços
