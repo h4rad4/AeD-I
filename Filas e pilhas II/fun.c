@@ -42,8 +42,10 @@ void converter_posfixa_para_prefixa(const Expressao *expressao_posfixa, Expressa
     char pilha[200][200];
     int topo = -1;
 
-    char *expressao_posfixa_temp = strdup(expressao_posfixa->expressao); 
-    char *token = strtok(expressao_posfixa_temp, " ");                   
+    char expressao_posfixa_temp[200];
+    strcpy(expressao_posfixa_temp, expressao_posfixa->expressao + 1); // Copia a expressão posfixa, ignorando o primeiro caractere nulo
+
+    char *token = strtok(expressao_posfixa_temp, " "); // Divide a expressão em elementos separados por espaços em branco
     while (token != NULL)
     {
         if (strchr(operadores, token[0]) == NULL) // Se for um operando
@@ -59,17 +61,16 @@ void converter_posfixa_para_prefixa(const Expressao *expressao_posfixa, Expressa
             topo--;
 
             char expressao_prefixa_temp[200];
-            sprintf(expressao_prefixa_temp, "%s %s %s", token, operando1, operando2); // Cria uma expressão prefixa temporária com o operador e operandos na ordem correta
-            adicionar_elemento(expressao_prefixa, expressao_prefixa_temp);            // Adiciona a expressão prefixa temporária à expressão prefixa final
+            sprintf(expressao_prefixa_temp, "%s %s %s", token, operando2, operando1); // Cria uma expressão prefixa temporária com o operador e operandos na ordem correta
+            adicionar_elemento(expressao_prefixa, expressao_prefixa_temp); // Adiciona a expressão prefixa temporária à expressão prefixa final
 
             topo++;
-            strcpy(pilha[topo], expressao_prefixa_temp); // Adiciona a expressão prefixa temporária à pilha para uso posterior
+            strcpy(pilha[topo], expressao_prefixa_temp); // Adiciona a expressão prefixa temporária à pilha
         }
         token = strtok(NULL, " "); // Move para o próximo token
     }
-
-    free(expressao_posfixa_temp); // Libera a memória alocada para a cópia da expressão posfixa
 }
+
 
 // Função para avaliar o resultado de uma expressão posfixa
 float avaliar_expressao(const Expressao *expressao)
