@@ -7,6 +7,7 @@ Pilha *criar_pilha()
 {
     Pilha *pilha = (Pilha *)malloc(sizeof(Pilha));
     pilha->topo = NULL;
+    
     return pilha;
 }
 
