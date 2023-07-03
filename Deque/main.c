@@ -4,7 +4,7 @@
 
 int main()
 {
-    DEQUE turma;
+    Deque turma;
     inicializar(&turma);
 
     Aluno lista01[3] = {{"Polaris"}, {"Vega"}, {"Aldebaran"}};

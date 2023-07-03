@@ -2,49 +2,49 @@
 #include <stdlib.h>
 #include "main.h"
 
-void inicializar(DEQUE *turma)
+void inicializar(Deque *turma)
 {
-    turma->cabeca = malloc(sizeof(Node));
-    turma->cabeca->proximo = turma->cabeca;
-    turma->cabeca->anterior = turma->cabeca;
+    turma->head = malloc(sizeof(Node));
+    turma->head->proximo = turma->head;
+    turma->head->anterior = turma->head;
     turma->tamanho = 0;
 }
 
-void inserirInicio(DEQUE *turma, Aluno novo)
+void inserirInicio(Deque *turma, Aluno novo)
 {
     Node *temp;
     temp = malloc(sizeof(Node));
     temp->aluno = novo;
-    temp->proximo = turma->cabeca->proximo;
-    temp->anterior = turma->cabeca;
-    turma->cabeca->proximo = temp;
+    temp->proximo = turma->head->proximo;
+    temp->anterior = turma->head;
+    turma->head->proximo = temp;
     temp->proximo->anterior = temp;
     turma->tamanho++;
 }
 
-void inserirFim(DEQUE *turma, Aluno novo)
+void inserirFim(Deque *turma, Aluno novo)
 {
     Node *temp;
     temp = malloc(sizeof(Node));
     temp->aluno = novo;
-    temp->proximo = turma->cabeca;
-    temp->anterior = turma->cabeca->anterior;
-    turma->cabeca->anterior = temp;
+    temp->proximo = turma->head;
+    temp->anterior = turma->head->anterior;
+    turma->head->anterior = temp;
     temp->anterior->proximo = temp;
     turma->tamanho++;
 }
 
-void imprimir(DEQUE turma, char ordem, int pos)
+void imprimir(Deque turma, char ordem, int pos)
 {
-    Node *atual = turma.cabeca->proximo;
+    Node *atual = turma.head->proximo;
 
     int j = 0;
 
     if (ordem == 'd')
     {
-        Node *atual = turma.cabeca->proximo;
+        Node *atual = turma.head->proximo;
         printf("\nDeque a partir da posicao %d, em ordem DIRETA:\n", pos);
-        while (atual != turma.cabeca)
+        while (atual != turma.head)
         {
             if (j < pos)
                 atual = atual->proximo;
@@ -59,9 +59,9 @@ void imprimir(DEQUE turma, char ordem, int pos)
     }
     else if (ordem == 'i')
     {
-        Node *atual = turma.cabeca->anterior;
+        Node *atual = turma.head->anterior;
         printf("\nDeque a partir da posicao %d, em ordem INVERSA: \n", pos);
-        while (atual != turma.cabeca)
+        while (atual != turma.head)
         {
             if (j < turma.tamanho - pos - 1)
                 atual = atual->anterior;

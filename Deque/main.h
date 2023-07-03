@@ -11,11 +11,11 @@ typedef struct no{
 
 typedef struct{
     int tamanho;
-    Node *cabeca;
+    Node *head;
 
-}DEQUE;
+}Deque;
 
-void inicializar(DEQUE *turma);
-void inserirInicio(DEQUE *turma, Aluno novo);
-void inserirFim(DEQUE *turma, Aluno novo);
-void imprimir(DEQUE turma, char ordem, int pos);
+void inicializar(Deque *turma);
+void inserirInicio(Deque *turma, Aluno novo);
+void inserirFim(Deque *turma, Aluno novo);
+void imprimir(Deque turma, char ordem, int pos);
