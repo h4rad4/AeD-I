@@ -7,7 +7,7 @@ Pilha *criar_pilha()
 {
     Pilha *pilha = (Pilha *)malloc(sizeof(Pilha));
     pilha->topo = NULL;
-
+    
     return pilha;
 }
 
@@ -132,94 +132,112 @@ void inverter_string(char *str)
 
 void converter_prefixa_para_posfixa(const Expressao *expressao_prefixa, Expressao *expressao_posfixa)
 {
-
+    // Cria uma pilha vazia
     Pilha *pilha = criar_pilha();
-    char *expressao_prefixa_temp = strdup(expressao_prefixa->expressao);
-    char *termo = strtok(expressao_prefixa_temp, " ");
+
+    char *expressao_prefixa_temp = strdup(expressao_prefixa->expressao); // Cria uma cópia temporária da expressão prefixa
+    char *termo = strtok(expressao_prefixa_temp, " ");                   // Divide a expressão em termos, separados por espaços
 
     while (termo != NULL)
     {
-        if (isOperador(termo[0]))
+        if (isOperador(termo[0])) // Se o termo for um operador
         {
-            while (!pilha_vazia(pilha) && isOperador(topo_pilha(pilha)[0]) &&
-                   getPrioridade(topo_pilha(pilha)[0]) >= getPrioridade(termo[0]))
+            while (!pilha_vazia(pilha) && isOperador(topo_pilha(pilha)[0]) && getPrioridade(topo_pilha(pilha)[0]) >= getPrioridade(termo[0]))
             {
-
-                adicionar_elemento(expressao_posfixa, topo_pilha(pilha));
-                desempilhar(pilha);
+                // Enquanto houver operadores no topo da pilha com prioridade maior ou igual ao termo atual
+                adicionar_elemento(expressao_posfixa, topo_pilha(pilha)); // Adiciona o operador no topo da pilha à expressão posfixa
+                desempilhar(pilha);                                       // Remove o operador do topo da pilha
             }
-
+            // Adiciona o termo atual à pilha
             empilhar(pilha, termo);
         }
-        else
+        else // Se o termo for um número, adiciona o número à expressão posfixa
             adicionar_elemento(expressao_posfixa, termo);
 
+        // Avança para o próximo termo
         termo = strtok(NULL, " ");
     }
 
     while (!pilha_vazia(pilha))
     {
-        adicionar_elemento(expressao_posfixa, topo_pilha(pilha));
-        desempilhar(pilha);
+        adicionar_elemento(expressao_posfixa, topo_pilha(pilha)); // Adiciona os operadores restantes da pilha à expressão posfixa
+        desempilhar(pilha);                                       // Remove os operadores da pilha
     }
 
-    apagar_pilha(pilha);
-    free(expressao_prefixa_temp);
+    apagar_pilha(pilha);          // Libera a memória alocada para a pilha
+    free(expressao_prefixa_temp); // Libera a memória alocada para a expressão prefixa temporária
 }
 
 void converter_posfixa_para_prefixa(const Expressao *expressao_posfixa, Expressao *expressao_prefixa)
 {
-
+    // Cria uma pilha para auxiliar na conversão
     Pilha *pilha = criar_pilha();
+
+    // Cria uma cópia temporária da expressão posfixa
     char *expressao_posfixa_temp = strdup(expressao_posfixa->expressao);
+
+    // Divide a expressão em termos separados por espaço
     char *termo = strtok(expressao_posfixa_temp, " ");
 
     while (termo != NULL)
     {
         if (isOperador(termo[0]))
         {
-
-            while (!pilha_vazia(pilha) && isOperador(topo_pilha(pilha)[0]) &&
-                   getPrioridade(topo_pilha(pilha)[0]) >= getPrioridade(termo[0]))
+            // Se o termo for um operador, verifica a prioridade com o operador no topo da pilha
+            while (!pilha_vazia(pilha) && isOperador(topo_pilha(pilha)[0]) && getPrioridade(topo_pilha(pilha)[0]) >= getPrioridade(termo[0]))
             {
-
+                // Enquanto a prioridade do operador no topo da pilha for maior ou igual à do termo atual, desempilha e adiciona o operador à expressão prefixa
                 adicionar_elemento(expressao_prefixa, topo_pilha(pilha));
                 desempilhar(pilha);
             }
-
+            // Empilha o operador atual
             empilhar(pilha, termo);
         }
         else
+        {
+            // Se o termo for um número ou operando, adiciona-o diretamente à expressão prefixa
             adicionar_elemento(expressao_prefixa, termo);
-
+        }
+        // Obtém o próximo termo da expressão posfixa
         termo = strtok(NULL, " ");
     }
 
+    // Desempilha os operadores restantes na pilha e adiciona-os à expressão prefixa
     while (!pilha_vazia(pilha))
     {
         adicionar_elemento(expressao_prefixa, topo_pilha(pilha));
         desempilhar(pilha);
     }
 
+    // Inverte a expressão prefixa para obter a notação correta
     inverter_string(expressao_prefixa->expressao);
 
+    // Libera a memória alocada e apaga a pilha
     free(expressao_posfixa_temp);
     apagar_pilha(pilha);
 }
 
 float resultado_expressao(const Expressao *expressao)
 {
+    // Cria uma pilha para auxiliar no cálculo
     char operadores[] = "+-*/";
-    Pilha *pilha = criar_pilha();
-    char *expressao_temp = strdup(expressao->expressao);
-    char *termo = strtok(expressao_temp, " ");
 
+    Pilha *pilha = criar_pilha();
+    // Cria uma cópia temporária da expressão
+    char *expressao_temp = strdup(expressao->expressao);
+
+    // Divide a expressão em termos separados por espaço
+    char *termo = strtok(expressao_temp, " ");
     while (termo != NULL)
     {
         if (strchr(operadores, termo[0]) == NULL)
+        {
+            // Se o termo não for um operador, empilha o operando na pilha
             empilhar(pilha, termo);
+        }
         else
         {
+            // Se o termo for um operador, desempilha os dois operandos anteriores da pilha
 
             float operando2 = atof(topo_pilha(pilha));
             desempilhar(pilha);
@@ -247,15 +265,19 @@ float resultado_expressao(const Expressao *expressao)
                 break;
             }
 
+            // Converte o resultado em uma string e empilha na pilha
             char str_resultado[20];
             sprintf(str_resultado, "%.2f", resultado);
             empilhar(pilha, str_resultado);
         }
-
+        // Obtém o próximo termo da expressão
         termo = strtok(NULL, " ");
     }
 
+    // O resultado final é o valor restante no topo da pilha
     float resultado_final = atof(topo_pilha(pilha));
+
+    // Libera a memória alocada e apaga a pilha
     free(expressao_temp);
     apagar_pilha(pilha);
 
