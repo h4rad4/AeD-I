@@ -23,14 +23,3 @@ int main()
 
     return 0;
 }
-
-/*
-    Exercícios
-
-    1. Implementar um TDA para uma tabela hash de pacientes
-    (codigo do paciente, nome, cpf, idade ) usando uma arrary  ponteiros a pacientes.
-
-    2. Implementar um TDA para uma tabela hash de pacientes
-    (codigo do paciente, nome, cpf, idade ) usando listas ligadas.
-
-*/
