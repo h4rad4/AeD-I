@@ -4,39 +4,26 @@
 #define N 5
 #define M_PI 3.14159265358979323846
 
-typedef struct Paciente
+typedef struct
 {
     char *nome;
     char *cpf;
     int idade;
-    int codigo;
+    int cod;
+} PACIENTE;
 
-} Paciente;
-
-typedef struct Node
+typedef struct node
 {
-    Paciente paciente;
+    PACIENTE pac;
+    struct node *next;
+} NODE;
 
-} Node;
+typedef NODE *TB_HASH[N];
 
-typedef struct Lista
-{
-    ;
-
-} Lista;
-
-typedef Paciente *TB_HASH[N];
-
-/* Função usada para obter o índice da tabela hash em que o elemento será inserido. *Procedimento de dispersão utilizado: sin(x)*/
-float indiceHash(double codigo);
-
-/* Inicializa a tabela com todos seus elementos NULL */
-void inicializarHash(TB_HASH tabela);
-
-/* Função usada para inserir um elemento na próxima posição avaliable da tabela hash*/
-int inserirHash(TB_HASH tabela, Paciente paciente);
-
-/* Função usada para imprimir os elementos da tabela hash */
-void imprimirTabela(TB_HASH tabela);
+int m_hash(int cod);
+void inicializahash(TB_HASH tab);
+void inserir(TB_HASH tab, PACIENTE pac);
+void mostrarhash(TB_HASH tab);
+PACIENTE *busca(TB_HASH tab, int cod);
 
 #endif
