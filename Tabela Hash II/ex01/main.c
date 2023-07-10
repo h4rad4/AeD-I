@@ -5,8 +5,7 @@
 int main()
 {
     TB_HASH Tabela;
-    Paciente p1, p2, p3, p4, p5;
-
+    
     Paciente Pacientes[N] =
         {{"Socrates", "209.478.341-42", 2470, 134201},
          {"Platao", "754.912.563-29", 2448, 258902},
