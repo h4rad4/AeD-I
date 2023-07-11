@@ -6,8 +6,7 @@
 
 typedef struct Paciente
 {
-    char *nome;
-    char *cpf;
+    char *nome, *cpf;
     int idade, codigo, status;
 
 } Paciente;

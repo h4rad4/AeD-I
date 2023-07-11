@@ -6,24 +6,22 @@
 
 typedef struct
 {
-    char *nome;
-    char *cpf;
-    int idade;
-    int cod;
-} PACIENTE;
+    char *nome, *cpf;
+    int idade, cod;
+
+} Paciente;
 
 typedef struct node
 {
-    PACIENTE pac;
+    Paciente pac;
     struct node *next;
-} NODE;
+} Node;
 
 typedef NODE *TB_HASH[N];
 
-int m_hash(int cod);
-void inicializahash(TB_HASH tab);
-void inserir(TB_HASH tab, PACIENTE pac);
-void mostrarhash(TB_HASH tab);
-PACIENTE *busca(TB_HASH tab, int cod);
+int indiceHash(int cod);
+void inicializaHash(TB_HASH tab);
+void inserirHash(TB_HASH tab, PACIENTE pac);
+void imprimirHash(TB_HASH tab);
 
 #endif
