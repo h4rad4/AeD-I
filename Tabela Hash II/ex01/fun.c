@@ -9,17 +9,18 @@ void inicializarHash(TB_HASH tabela)
         tabela[i] = NULL;
 }
 
-float indiceHash(double codigo)
+int indiceHash(int codigo)
 {
-    /* Retorna o valor convertido para radianos */
-    return sin((codigo * M_PI / 180));
+    /* "fmod" calcula o mod de um valor de ponto flutuante */
+    // return fmod(sin((codigo * M_PI / 180)), N);
+    return codigo % N;
 }
 
 int inserirHash(TB_HASH tabela, Paciente paciente)
 {
     int i = indiceHash(paciente.codigo);
 
-    for (i; tabela[i] != NULL; i++)
+    for (i; tabela[i] != NULL && tabela[i]->status != -1; i++)
     {
         if (tabela[i]->codigo == paciente.codigo)
             return 0;
@@ -27,6 +28,26 @@ int inserirHash(TB_HASH tabela, Paciente paciente)
 
     tabela[i] = malloc(sizeof(Paciente));
     *(tabela[i]) = paciente;
+
+    tabela[i]->status = 1;
+
+    return 0;
+}
+
+int excluirHash(TB_HASH tabela, Paciente paciente)
+{
+    int i = indiceHash(paciente.codigo);
+
+    if (tabela[i] != NULL && tabela[i]->codigo == paciente.codigo && tabela[i]->status == 1)
+    {
+        tabela[i]->status = -1;
+        free(tabela[i]);
+        tabela[i] = NULL;
+
+        return 1;
+    }
+
+    return 0;
 }
 
 Paciente *buscaHash(TB_HASH tabela, int codigo)
@@ -34,7 +55,10 @@ Paciente *buscaHash(TB_HASH tabela, int codigo)
     int i = indiceHash(codigo);
 
     for (i; tabela[i] != NULL; i++)
-        return tabela[i];
+    {
+        if (tabela[i]->codigo == codigo)
+            return tabela[i];
+    }
 
     return NULL;
 }
@@ -47,13 +71,13 @@ void imprimirTabela(TB_HASH tabela)
         if (tabela[i] != NULL)
         {
             printf("\n");
-            printf("[Paciente %d] \n", i);
+            printf("[Paciente %d] \n", i + 1);
             printf("Codigo do paciente: %d\n", tabela[i]->codigo);
             printf("Nome: %s\n", tabela[i]->nome);
             printf("CPF: %s\n", tabela[i]->cpf);
             printf("Idade: %d\n", tabela[i]->idade);
         }
         else
-            printf("Paciente %d: \nNULL", i);
+            printf("\n[Paciente %d]: \nNULL\n", i+1);
     }
 }
