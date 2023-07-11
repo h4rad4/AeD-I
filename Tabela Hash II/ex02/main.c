@@ -16,9 +16,15 @@ int main()
     inicializarHash(Tabela);
 
     for (int i = 0; i < N; i++)
-        inserir(Tabela, Pacientes[i]);
+        inserirHash(Tabela, Pacientes[i]);
 
-    imprimirHash(Tabela);
+    imprimirTabela(Tabela);
+
+    excluirHash(Tabela, 134201);
+    excluirHash(Tabela, 258902);
+    printf("\n*Tabela apos exclusao:\n");
+
+    imprimirTabela(Tabela);
 
     return 0;
 }

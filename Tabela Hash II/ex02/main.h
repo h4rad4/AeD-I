@@ -1,27 +1,27 @@
-#ifndef main_h
-#define main_h
-
+#ifndef ex1_h
+#define ex1_h
 #define N 5
-#define M_PI 3.14159265358979323846
 
-typedef struct
+typedef struct Paciente
 {
     char *nome, *cpf;
-    int idade, cod;
+    int idade, codigo;
 
 } Paciente;
 
-typedef struct node
+typedef struct aux
 {
-    Paciente pac;
-    struct node *next;
+    Paciente paciente;
+    struct aux *proximo;
+
 } Node;
 
-typedef NODE *TB_HASH[N];
+typedef Node *TB_HASH[N];
 
-int indiceHash(int cod);
-void inicializaHash(TB_HASH tab);
-void inserirHash(TB_HASH tab, PACIENTE pac);
-void imprimirHash(TB_HASH tab);
+int indiceHash(int codigo);
+void inicializarHash(TB_HASH tabela);
+int inserirHash(TB_HASH tabela, Paciente Paciente);
+void imprimirTabela(TB_HASH tabela);
+void excluirHash(TB_HASH tabela, int cod);
 
 #endif
