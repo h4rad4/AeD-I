@@ -13,16 +13,24 @@ int sLinear(TB_HASH tabela, Hash elemento)
 {
     /* Dispersão */
     int h;
+    int col = 0;
 
     for (int i = 0; i < M; i++)
-    {
-        h = (tabela[i]->key + i) % M;
-        printf("[%d]", h);
-    }
+        h = elemento.key % M;
 
     /* Inserção */
+    for (h; tabela[h] != NULL && tabela[h]->disp != 0; h++)
+    {
+        col++;
+        if (tabela[h]->key == elemento.key % M)
+            return 0;
+    }
+
     tabela[h] = malloc(sizeof(Hash));
     *(tabela[h]) = elemento;
+    tabela[h]->disp = 1;
+
+    printf("\nColisoes (para %d): %d", elemento.key, col);
 }
 
 int sQuadratica1(TB_HASH tabela, Hash elemento)
@@ -30,7 +38,7 @@ int sQuadratica1(TB_HASH tabela, Hash elemento)
     int h;
 
     for (int i = 0; i < M; i++)
-        h = fmod((tabela[i]->key + pow(i, 2)), M);
+        h = (elemento.key + (int)pow(i, 2)) % M;
 
     tabela[h] = malloc(sizeof(Hash));
     *(tabela[h]) = elemento;
@@ -50,7 +58,6 @@ int sQuadratica2(TB_HASH tabela, Hash elemento)
 int hash01(TB_HASH tabela, Hash elemento)
 {
     int h;
-
     for (int i = 0; i < M; i++)
         h = tabela[i]->key % M;
 
@@ -71,14 +78,14 @@ int hash02(TB_HASH tabela, Hash elemento)
 
 void imprimirTabela(TB_HASH tabela)
 {
+    printf("\n-> Tabela: ");
     for (int i = 0; i < M; i++)
     {
-        if (tabela[i] != NULL)
-        {
-            printf("\n");
-            printf("%d\t", tabela[i]->key);
-        }
+        printf("\t");
+        if (tabela[i] == NULL)
+            printf("NULL");
         else
-            printf("NULL\t", i + 1);
+            printf("%d", tabela[i]->key);
     }
+    printf("\n");
 }

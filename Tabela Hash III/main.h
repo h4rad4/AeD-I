@@ -5,7 +5,7 @@
 
 typedef struct Hash
 {
-    int key;
+    int key, disp;
 
 } Hash;
 
