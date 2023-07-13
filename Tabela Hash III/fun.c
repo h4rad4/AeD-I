@@ -16,64 +16,84 @@ int sLinear(TB_HASH tabela, Hash elemento)
     int col = 0;
 
     for (int i = 0; i < M; i++)
-        h = elemento.key % M;
-
-    /* Inserção */
-    for (h; tabela[h] != NULL && tabela[h]->disp != 0; h++)
     {
-        col++;
-        if (tabela[h]->key == elemento.key % M)
-            return 0;
+        h = (elemento.key + i) % M;
+
+        if (i != 0)
+            col++;
+        if (tabela[h] == NULL)
+            break;
     }
 
     tabela[h] = malloc(sizeof(Hash));
     *(tabela[h]) = elemento;
-    tabela[h]->disp = 1;
+    // tabela[h]->disp = 1;
 
-    printf("\nColisoes (para %d): %d", elemento.key, col);
+    printf("\nColisoes (para %d): %d", elemento.key, col++);
 }
 
 int sQuadratica1(TB_HASH tabela, Hash elemento)
 {
     int h;
+    int col = 0;
 
     for (int i = 0; i < M; i++)
+    {
         h = (elemento.key + (int)pow(i, 2)) % M;
+
+        if (i != 0)
+            col++;
+        if (tabela[h] == NULL)
+            break;
+    }
 
     tabela[h] = malloc(sizeof(Hash));
     *(tabela[h]) = elemento;
+
+    printf("Colisoes (para %d): %d\n", elemento.key, col++);
 }
 
 int sQuadratica2(TB_HASH tabela, Hash elemento)
 {
     int h;
+    int col = 0;
 
     for (int i = 0; i < M; i++)
-        h = fmod((tabela[i]->key + 2 * i + pow(i, 2)), M);
+    {
+        h = fmod((elemento.key + 2 * i + pow(i, 2)), M);
+
+        if (i != 0)
+            col++;
+        if (tabela[h] == NULL)
+            break;
+    }
 
     tabela[h] = malloc(sizeof(Hash));
     *(tabela[h]) = elemento;
+
+    printf("Colisoes (para %d): %d\n", elemento.key, col++);
 }
 
-int hash01(TB_HASH tabela, Hash elemento)
+int hashDuplo(TB_HASH tabela, Hash elemento)
 {
+    int h1 = elemento.key % M;
+    int h2 = 7 - (elemento.key % 7);
     int h;
+    int col = 0;
+
     for (int i = 0; i < M; i++)
-        h = tabela[i]->key % M;
+    {
+        h = (h1 + i * h2) % M;
+        if (i != 0)
+            col++;
+        if (tabela[h] == NULL)
+            break;
+    }
 
     tabela[h] = malloc(sizeof(Hash));
     *(tabela[h]) = elemento;
-}
 
-int hash02(TB_HASH tabela, Hash elemento)
-{
-    int h;
-
-    for (int i = 0; i < M; i++)
-        h = 7 - (tabela[i]->key % 7);
-
-    tabela[h] = malloc(sizeof(Hash));
-    *(tabela[h]) = elemento;
+    printf("Colisoes (para %d): %d\n", elemento.key, col);
 }
 
 void imprimirTabela(TB_HASH tabela)
