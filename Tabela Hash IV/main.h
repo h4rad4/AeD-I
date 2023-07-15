@@ -1,6 +1,6 @@
 #ifndef ex1_h
 #define ex1_h
-#define N 10
+#define N 11
 
 typedef struct
 {
