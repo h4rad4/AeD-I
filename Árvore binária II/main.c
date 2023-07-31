@@ -1,7 +1,7 @@
 #include "main.h"
 #include <stdio.h>
 
-int main()
+int main(int argc, char const *argv[])
 {
     Arvore arvore = {.raiz = NULL};
     char expressao_infixa[] = "a*((b-c)/d)";

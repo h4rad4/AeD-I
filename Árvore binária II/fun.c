@@ -42,39 +42,6 @@ bool vazia(Pilha *pilha)
     return pilha->topo == NULL;
 }
 
-void inserir(Arvore *a, char dado)
-{
-    if (a->raiz == NULL)
-        a->raiz = criar_no(dado);
-    else
-    {
-        NoArvore *atual = a->raiz;
-        while (true)
-        {
-            if (dado < atual->dado)
-            {
-                if (atual->esquerda == NULL)
-                {
-                    atual->esquerda = criar_no(dado);
-                    break;
-                }
-                atual = atual->esquerda;
-            }
-            else if (dado > atual->dado)
-            {
-                if (atual->direita == NULL)
-                {
-                    atual->direita = criar_no(dado);
-                    break;
-                }
-                atual = atual->direita;
-            }
-            else
-                break;
-        }
-    }
-}
-
 void infixa_para_posfixa(char *infixa, char *posfixa)
 {
     Pilha *pilha = criar_pilha();
@@ -141,6 +108,39 @@ NoArvore *criar_no(char dado)
     novo_no->direita = NULL;
 
     return novo_no;
+}
+
+void inserir(Arvore *a, char dado)
+{
+    if (a->raiz == NULL)
+        a->raiz = criar_no(dado);
+    else
+    {
+        NoArvore *atual = a->raiz;
+        while (true)
+        {
+            if (dado < atual->dado)
+            {
+                if (atual->esquerda == NULL)
+                {
+                    atual->esquerda = criar_no(dado);
+                    break;
+                }
+                atual = atual->esquerda;
+            }
+            else if (dado > atual->dado)
+            {
+                if (atual->direita == NULL)
+                {
+                    atual->direita = criar_no(dado);
+                    break;
+                }
+                atual = atual->direita;
+            }
+            else
+                break;
+        }
+    }
 }
 
 NoArvore *construir_arvore(char *posfixa)
