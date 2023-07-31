@@ -113,8 +113,7 @@ Node *buscar(Arvore *arvore, int codigo)
 
 void percorrer_pre_ordem(Node *raiz)
 {
-    if (!raiz)
-        return;
+    if (!raiz) return; // Se a raiz for nula
 
     printf("%d \n", raiz->paciente.codigo);
     percorrer_pre_ordem(raiz->esquerda);
@@ -123,7 +122,7 @@ void percorrer_pre_ordem(Node *raiz)
 
 void percorrer_in_ordem(Node *raiz)
 {
-    if (!raiz) return;
+    if (!raiz) return; 
     
     percorrer_in_ordem(raiz->esquerda);
     printf("%d \n", raiz->paciente.codigo);

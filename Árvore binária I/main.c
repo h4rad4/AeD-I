@@ -26,7 +26,7 @@ int main(int argc, char const *argv[])
     Node *searchNode;
     searchNode = buscar(&arvore, 24);
 
-    printf("\nResultado da Busca: \n");
+    printf("\n[Resultado da Busca] \n");
 
     printf("Endereco: %p\n", searchNode);
     printf("No esquerdo: %p\n", searchNode->esquerda);
