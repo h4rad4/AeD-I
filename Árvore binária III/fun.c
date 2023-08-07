@@ -2,38 +2,14 @@
 #include <stdlib.h>
 #include "main.h"
 
-Node *criarNo(Paciente p)
-{
-    Node *novoNo = malloc(sizeof(Node));
-    novoNo->pac = p;
-    novoNo->h = 0;
-    novoNo->esquerda = NULL;
-    novoNo->direita = NULL;
-
-    return novoNo;
-}
-
-void inicializarArvore(Arvore *a)
+void inicializar(ARVORE *a)
 {
     a->raiz = NULL;
 }
 
-Node *rot_direita(Node *no_desb)
+int altura(NO *raiz)
 {
-    Node *aux;
-    aux = no_desb->esquerda;
-    no_desb->esquerda = aux->direita;
-    aux->direita = no_desb;
-
-    no_desb->h = maximo(altura(no_desb->direita), altura(no_desb->esquerda)) + 1;
-    aux->h = maximo(altura(aux->esquerda), altura(no_desb)) + 1;
-
-    return aux;
-}
-
-int altura(Node *raiz)
-{
-    if (!raiz)
+    if (raiz == NULL)
         return -1;
     else
         return raiz->h;
@@ -45,4 +21,110 @@ int maximo(int v1, int v2)
         return v1;
     else
         return v2;
+}
+
+NO *rot_direita(NO *raiz)
+{
+    NO *aux;
+    aux = raiz->esquerda;
+    raiz->esquerda = aux->direita;
+    aux->direita = raiz;
+    raiz->h = maximo(altura(raiz->direita), altura(raiz->esquerda)) + 1;
+    aux->h = maximo(altura(aux->esquerda), altura(raiz)) + 1;
+    return aux;
+}
+
+NO *rot_esquerda(NO *raiz)
+{
+    NO *aux;
+    aux = raiz->direita;
+    raiz->direita = aux->esquerda;
+    aux->esquerda = raiz;
+    raiz->h = maximo(altura(raiz->direita), altura(raiz->esquerda)) + 1;
+    aux->h = maximo(altura(aux->direita), altura(raiz)) + 1;
+    return aux;
+}
+
+NO *rot_esq_direita(NO *raiz)
+{
+    raiz->esquerda = rot_esquerda(raiz->esquerda);
+    return rot_direita(raiz);
+}
+
+NO *rot_dir_esquerda(NO *raiz)
+{
+    raiz->direita = rot_direita(raiz->direita);
+    return rot_esquerda(raiz);
+}
+
+NO *inserir_no(NO *raiz, NO *novo)
+{
+    if (raiz == NULL)
+        return novo;
+    if (raiz->num > novo->num)
+    {
+        raiz->esquerda = inserir_no(raiz->esquerda, novo);
+        if (abs(altura(raiz->direita) - altura(raiz->esquerda)) > 1)
+        {
+            if (novo->num < raiz->esquerda->num)
+                raiz = rot_direita(raiz);
+            else
+                raiz = rot_esq_direita(raiz);
+        }
+    }
+    else if (raiz->num < novo->num)
+    {
+        raiz->direita = inserir_no(raiz->direita, novo);
+        if (abs(altura(raiz->esquerda) - altura(raiz->direita)) > 1)
+        {
+            if (novo->num > raiz->direita->num)
+                raiz = rot_esquerda(raiz);
+            else
+                raiz = rot_dir_esquerda(raiz);
+        }
+    }
+    raiz->h = maximo(altura(raiz->esquerda), altura(raiz->direita)) + 1;
+    return raiz;
+}
+
+void adiciona_no(ARVORE *a, NO *novo)
+{
+    a->raiz = inserir_no(a->raiz, novo);
+}
+
+void cria_no(ARVORE *a, int numero)
+{
+    NO *novo = malloc(sizeof(NO));
+    novo->num = numero;
+    novo->h = 0;
+    novo->direita = NULL;
+    novo->esquerda = NULL;
+    adiciona_no(a, novo);
+}
+
+void print_pre_ordem(NO *raiz)
+{
+    if (raiz == NULL)
+        return;
+    printf("%d ", raiz->num);
+    print_pre_ordem(raiz->esquerda);
+    print_pre_ordem(raiz->direita);
+}
+
+void print_in_ordem(NO *raiz)
+{
+    if (raiz == NULL)
+        return;
+    print_pre_ordem(raiz->esquerda);
+    printf("%d ", raiz->num);
+    print_pre_ordem(raiz->direita);
+}
+
+void print_pos_ordem(NO *raiz)
+{
+    if (raiz == NULL)
+        return;
+    print_pre_ordem(raiz->esquerda);
+    print_pre_ordem(raiz->direita);
+    printf("%d ", raiz->num);
 }
