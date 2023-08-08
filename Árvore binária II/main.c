@@ -3,7 +3,9 @@
 
 int main(int argc, char const *argv[])
 {
-    Arvore arvore = {.raiz = NULL};
+    Arvore arvore;
+    arvore.raiz = NULL;
+    
     char expressao_infixa[] = "a*((b-c)/d)";
 
     for (int i = 0; expressao_infixa[i] != '\0'; i++)
