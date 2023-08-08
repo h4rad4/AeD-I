@@ -6,11 +6,13 @@ typedef struct aux{
     struct aux* esquerda;
     struct aux* direita;
     int h;
-}NO;
+
+} NO;
 
 typedef struct{
     NO* raiz;
-}ARVORE;
+
+} ARVORE;
 
 void inicializar(ARVORE *a);
 int altura(NO *raiz);
