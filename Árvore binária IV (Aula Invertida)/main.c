@@ -1,39 +1,45 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include "main.h"
 
 int main(int argc, char const *argv[])
 {
-    Arvore *arvore = criar_arvore();
+    Arvore *raiz = NULL;
 
-    // Inserção de pacientes na árvore
-    arvore->raiz = inserir(arvore->raiz, 1, "Ana Banana");
-    arvore->raiz = inserir(arvore->raiz, 2, "Joao Pao");
-    arvore->raiz = inserir(arvore->raiz, 3, "Isabela Geleia");
-    arvore->raiz = inserir(arvore->raiz, 4, "Gabriela Guitarra");
-    arvore->raiz = inserir(arvore->raiz, 5, "Gabriela Guitarra");
+    int valor[] = {55, 12, 99, 42, 87, 63, 28, 19, 76, 200, 15};
+    int quantidade = sizeof(valor) / sizeof(int);
 
+    for (int i = 0; i < quantidade; i++)
+        inserir(&raiz, valor[i]);
 
-    // Busca de paciente na árvore
-    int codigo_busca = 1;
-    Paciente *paciente_encontrado = buscar(arvore->raiz, codigo_busca);
+    printf("[Arvore]: ");
+    imprimirArvore(raiz);
 
-    printf("Buscando paciente de codigo %d... \n", codigo_busca);
-    if (paciente_encontrado != NULL)
-        printf("Paciente encontrado: Codigo %d, Nome: %s\n", paciente_encontrado->codigo, paciente_encontrado->nome);
+    int excluido = 20;
+    excluir(&raiz, excluido);
+
+    printf("\n[Arvore apos exclusao]: ");
+    imprimirArvore(raiz);
+
+    printf("\n\nFolhas da arvore: \n");
+    imprimirFolhas(raiz);
+    printf("\n\n");
+
+    int busca = 10;
+    printf("\nBuscando elemento %d...\n", busca);
+
+    if (buscar(raiz, busca))
+        printf("O elemento %d foi encontrado na arvore.", busca);
     else
-        printf("Paciente com codigo %d nao encontrado.\n", codigo_busca);
+        printf("O elemento %d nao foi encontrado na arvore.", busca);
 
-    printf("[Imprimindo a arvore] \n");
-    imprimir_arvore(arvore->raiz, 0);
+    busca = 12;
+    printf("\nBuscando elemento %d...\n", busca);
 
-    // Remoção de paciente da árvore
-    int codigo_remocao = 2;
-    arvore->raiz = remover_paciente(arvore->raiz, codigo_remocao);
-
-    printf("[Imprimindo a arvore depois da exclusao] \n");
-    imprimir_arvore(arvore->raiz, 0);
+    if (buscar(raiz, busca))
+        printf("O elemento %d foi encontrado na arvore.\n", busca);
+    else
+        printf("O elemento %d nao encontrada na arvore.\n", busca);
 
     return 0;
 }
