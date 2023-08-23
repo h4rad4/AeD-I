@@ -16,8 +16,9 @@ Arvore *criar_no(int ultimo)
 void ligar_folhas(Arvore *folha_atual, Arvore *proximo)
 {
     while (folha_atual->proxima_folha != NULL)
+    {
         folha_atual = folha_atual->proxima_folha;
-
+    }
     folha_atual->proxima_folha = proximo;
 }
 
@@ -26,8 +27,9 @@ int indice(Arvore *no, int key)
 {
     int index = 0;
     while (index < no->quantidade && key > no->valor[index])
+    {
         index++;
-
+    }
     return index;
 }
 
@@ -43,7 +45,9 @@ void split(Arvore *pai, int filho_index)
 
     // Move metade dos valores do filho original para o novo filho
     for (int i = 0; i < newfilho->quantidade; i++)
+    {
         newfilho->valor[i] = filho->valor[i + ordem / 2];
+    }
 
     // Se o filho original não for uma folha, move metade dos ramos para o novo filho
     if (!filho->ultimo)
@@ -288,8 +292,9 @@ void exclui_elemento(Arvore *no, int key)
     {
         // Remove o valor do nó
         for (int i = index; i < no->quantidade - 1; i++)
+        {
             no->valor[i] = no->valor[i + 1];
-
+        }
         no->quantidade--;
     }
     else
@@ -349,8 +354,9 @@ void excluir(Arvore **raiz, int key)
         {
             // Remove o valor da raiz
             for (int i = index; i < rootNode->quantidade - 1; i++)
+            {
                 rootNode->valor[i] = rootNode->valor[i + 1];
-
+            }
             rootNode->quantidade--;
         }
         else
@@ -400,18 +406,24 @@ void excluir(Arvore **raiz, int key)
         Arvore *filhoNode = rootNode->ramo[index];
         // Verifica se o nó filho tem pelo menos metade dos valores necessários
         if (filhoNode->quantidade >= ordem / 2)
+        {
             // Chama recursivamente a exclusão no nó filho
             exclui_elemento(filhoNode, key);
+        }
         else
         {
             // Verifica se é possível mover um valor da esquerda
             if (index > 0 && rootNode->ramo[index - 1]->quantidade >= ordem / 2)
+            {
                 // Move um valor do nó pai para o nó filho
                 mover_da_direita(rootNode, index);
+            }
             // Verifica se é possível mover um valor da direita
             else if (index < rootNode->quantidade && rootNode->ramo[index + 1]->quantidade >= ordem / 2)
+            {
                 // Move um valor do nó pai para o nó filho
                 mover_da_esquerda(rootNode, index);
+            }
             else
             {
                 // Caso contrário, junta os filhos e continua a exclusão
@@ -442,12 +454,16 @@ void imprimirFolhas(Arvore *no)
         if (no->ultimo)
         { // Se for uma folha
             for (int i = 0; i < no->quantidade; i++)
+            {
                 printf("%d ", no->valor[i]);
+            }
         }
         else
         {
             for (int i = 0; i <= no->quantidade; i++)
+            {
                 imprimirFolhas(no->ramo[i]); // Chamada recursiva para os filhos
+            }
         }
     }
 }
@@ -457,13 +473,19 @@ int buscar(Arvore *no, int key)
 {
     int index = 0;
     while (index < no->quantidade && key > no->valor[index])
+    {
         index++;
+    }
 
     if (index < no->quantidade && key == no->valor[index])
+    {
         return 1;
+    }
 
     if (no->ultimo)
+    {
         return 0;
+    }
 
     return buscar(no->ramo[index], key);
 }
