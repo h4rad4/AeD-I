@@ -143,34 +143,6 @@ void inserir(Arvore *a, char dado)
     }
 }
 
-NoArvore *construir_arvore(char *posfixa)
-{
-    Pilha *pilha = criar_pilha();
-    int i = 0;
-
-    while (posfixa[i] != '\0')
-    {
-        char caractere_atual = posfixa[i];
-
-        NoArvore *novo_no = criar_no(caractere_atual);
-        if (caractere_atual >= 'a' && caractere_atual <= 'z')
-            empilhar(pilha, novo_no);
-
-        else
-        {
-            novo_no->direita = desempilhar(pilha);
-            novo_no->esquerda = desempilhar(pilha);
-            empilhar(pilha, novo_no);
-        }
-
-        i++;
-    }
-
-    NoArvore *raiz = desempilhar(pilha);
-    free(pilha);
-    return raiz;
-}
-
 void liberar_arvore(NoArvore *no)
 {
     if (no != NULL)
@@ -256,28 +228,3 @@ void infixa_para_prefixa(char *infixa, char *prefixa)
 
     strcpy(prefixa, posfixa);
 }
-
-/*
-Explicação passo a passo do código:
-
-1. Cria uma pilha vazia.
-2. Inicializa as variáveis i e j com zero.
-3. Enquanto não chegar ao fim da string infixa:
-   a. Obtém o caractere atual da string infixa.
-   b. Se o caractere atual for um espaço em branco, incrementa i e continua para a próxima iteração.
-   c. Se o caractere atual for uma letra minúscula, adiciona o caractere atual na string posfixa e incrementa j.
-   d. Se o caractere atual for um parêntese de abertura "(":
-      - Empilha o caractere atual na pilha.
-   e. Se o caractere atual for um parêntese de fechamento ")":
-      - Enquanto a pilha não estiver vazia e o topo da pilha for diferente de "(":
-        - Desempilha um nó da pilha, adiciona o dado do nó na string posfixa e libera a memória do nó.
-      - Desempilha o parêntese de abertura "(" da pilha.
-   f. Se o caractere atual for um operador:
-      - Enquanto a pilha não estiver vazia e a prioridade do topo da pilha for maior ou igual à prioridade do caractere atual:
-        - Desempilha um nó da pilha, adiciona o dado do nó na string posfixa e libera a memória do nó.
-      - Empilha o caractere atual na pilha.
-   g. Incrementa i.
-4. Enquanto a pilha não estiver vazia:
-   - Desempilha um nó da pilha, adiciona o dado do nó na string posfixa e libera a memória do nó.
-5. Adiciona o caractere nulo '\0' no final da string posfixa.
-*/
