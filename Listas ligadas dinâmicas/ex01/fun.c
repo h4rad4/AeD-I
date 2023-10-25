@@ -10,9 +10,7 @@ Node *inserirInicioLista(Node *head, int valor)
     novoNo->anterior = NULL;
 
     if (head != NULL)
-    {
         head->anterior = novoNo;
-    }
 
     return novoNo;
 }

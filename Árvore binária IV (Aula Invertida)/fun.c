@@ -270,9 +270,8 @@ void mover_da_esquerda(Arvore *pai, int filho_index)
 
     // Se o filho não for uma folha, ajusta o primeiro ramo
     if (!filho->ultimo)
-    {
         filho->ramo[0] = filhoEsquerdo->ramo[filhoEsquerdo->quantidade];
-    }
+
 
     // Decrementa a quantidade de valores no filho da esquerda
     filhoEsquerdo->quantidade--;
@@ -454,16 +453,12 @@ void imprimirFolhas(Arvore *no)
         if (no->ultimo)
         { // Se for uma folha
             for (int i = 0; i < no->quantidade; i++)
-            {
                 printf("%d ", no->valor[i]);
-            }
         }
         else
         {
             for (int i = 0; i <= no->quantidade; i++)
-            {
                 imprimirFolhas(no->ramo[i]); // Chamada recursiva para os filhos
-            }
         }
     }
 }
@@ -473,19 +468,16 @@ int buscar(Arvore *no, int key)
 {
     int index = 0;
     while (index < no->quantidade && key > no->valor[index])
-    {
         index++;
-    }
+
 
     if (index < no->quantidade && key == no->valor[index])
-    {
         return 1;
-    }
+
 
     if (no->ultimo)
-    {
         return 0;
-    }
+
 
     return buscar(no->ramo[index], key);
 }
